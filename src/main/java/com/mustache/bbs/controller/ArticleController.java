@@ -85,7 +85,7 @@ public class ArticleController {
         article.setTitle(dto.getTitle());
         article.setContent(dto.getContent());
 
-        return "redirect:/articles";
+        return "redirect:/articles"+article.getId();
     }
 
     @GetMapping("/{id}/delete")
