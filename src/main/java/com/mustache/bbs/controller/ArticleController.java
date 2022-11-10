@@ -41,7 +41,7 @@ public class ArticleController {
     //id로 조회 페이지
     @GetMapping("/{id}")
     public String read(@PathVariable Long id, Model model) {
-        log.info("id:{]",id);
+        log.info("id:{}",id);
 
         Optional<Article> opArticle = articleRepository.findById(id);
         Article articleEntity = opArticle.orElse(null);
@@ -50,7 +50,7 @@ public class ArticleController {
         }else{
             return "error";
         }
-        return "articles/show";
+        return "articles/articleRead";
     }
 
     //전체글 리스트 페이지
