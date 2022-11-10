@@ -1,0 +1,15 @@
+<br/>
+<div class="card">
+    <div class="card-header bi bi-chat-right-dots"> Write a Comment</div>
+    {{! 댓글작성 부분}}
+    <form action="/comments/{id}" method="post">
+
+        <input type="text" id="id" value="{{article.id}}"/>
+            <div class="card-body">
+                <textarea id="comment" name="comment" class="form-control" rows="4" placeholder="댓글을 입력하세요"></textarea>
+            </div>
+            <div class="card-footer">
+                <input type="submit"/>
+            </div>
+    </form>
+</div>
