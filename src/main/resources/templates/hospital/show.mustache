@@ -1,0 +1,38 @@
+{{>layouts/header}}
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">{{hospital.id}}</th>
+        <td>{{hospital.hospitalName}}</td>
+        <td>{{hospital.roadNameAddress}}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#reviews}}
+        <tr>
+            <th scope="row">{{hospitalId}}</th>
+            <td>{{commentContent}}</td>
+            <td>{{userName}}</td>
+        </tr>
+    {{/reviews}}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="/articles/{{id}}/edit">Modify</a>
+<a class="btn btn-danger" href="/articles/{{id}}/delete">Delete</a>
+{{>layouts/footer}}
