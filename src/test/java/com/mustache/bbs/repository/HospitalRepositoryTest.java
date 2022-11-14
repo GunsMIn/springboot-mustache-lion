@@ -3,23 +3,33 @@ package com.mustache.bbs.repository;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.mustache.bbs.domain.entity.Hospital;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@WebAppConfiguration
 @SpringBootTest
 class HospitalRepositoryTest {
+
     @Autowired
     HospitalRepository hospitalRepository;
 
     @Test
-    void findBy() {
-        List<Hospital> hospitals = hospitalRepository.findByHospitalName("김내과");
-        printHospitalNameAndAddress(hospitals);
+    @DisplayName("Hospital 정보를 잘 가져오는지 테스트")
+    void getHospital() {
+        hospitalRepository.findById(1);
+        Optional<Hospital> hospital = hospitalRepository.findById(1);
+        Hospital hp = hospital.get();
+        System.out.println(hp.getId());
+        assertEquals(1, hp.getId());
     }
 
     void printHospitalNameAndAddress(List<Hospital> hospitals) {
@@ -30,36 +40,51 @@ class HospitalRepositoryTest {
         System.out.println(hospitals.size());
     }
 
+
     @Test
-    void findByStartingWith() {
-        List<Hospital> hospitals = hospitalRepository.findByRoadNameAddressStartingWith("서울특별시 서초구");
-        System.out.println(hospitals.size());
+    @DisplayName("BusinessTypeName이 보건소 보건지소 보건진료소인 데이터가 잘 나오는지")
+    void findByBusinessTypeNameIn() {
+        List<String> inClues = new ArrayList<>();
+        inClues.add("보건소");
+        inClues.add("보건지소");
+        inClues.add("보건진료소");
+        List<Hospital> hospitals = hospitalRepository.findByBusinessTypeNameIn(inClues);
         for (var hospital : hospitals) {
-            System.out.printf("%s %s\n", hospital.getHospitalName(), hospital.getRoadNameAddress());
+            System.out.println(hospital.getHospitalName());
         }
     }
 
     @Test
-    void findByLike() {
-        List<Hospital> hospitals = hospitalRepository.findByHospitalNameLike("%한방%신경%");
-        printHospitalNameAndAddress(hospitals);
-    }
-
-    @Test
     void containing() {
-        List<Hospital> hospitals = hospitalRepository.findByHospitalNameContaining("자생");
+        List<Hospital> hospitals = hospitalRepository.findByRoadNameAddressContaining("송파구");
         printHospitalNameAndAddress(hospitals);
     }
 
     @Test
-    void between() {
-        List<Hospital> hospitals = hospitalRepository.findByTotalAreaSizeBetween(10, 100);
+    void containing2() {
+        List<Hospital> hospitals = hospitalRepository.findByHospitalNameContaining("닥터 스마일");
+        printHospitalNameAndAddress(hospitals);
+    }
+
+
+    @Test
+    void startsWith() {
+        List<Hospital> hospitals = hospitalRepository.findByHospitalNameStartsWith("경희");// 가톨릭 서울 연세 경희
         printHospitalNameAndAddress(hospitals);
     }
 
     @Test
-    void orderby() {
-        List<Hospital> hospitals = hospitalRepository.findByRoadNameAddressContainingOrderByTotalAreaSize("경기도 수원시");
+    void endsWith() {
+        List<Hospital> hospitals = hospitalRepository.findByHospitalNameEndsWith("병원");// 의원, 병원, 이비인후과, 치과
         printHospitalNameAndAddress(hospitals);
+    }
+
+    @Test
+    @DisplayName("병상 수 10개 이상 20개 미만 병원 찾기")
+    void findByTotalNumberOfBedsBetween(){
+        List<Hospital> hospitalList = hospitalRepository.findByTotalNumberOfBedsBetween(10, 19);
+        for (Hospital hospital : hospitalList) {
+            System.out.println(hospital.getHospitalName() + " | " + hospital.getTotalNumberOfBeds());
+        }
     }
 }
