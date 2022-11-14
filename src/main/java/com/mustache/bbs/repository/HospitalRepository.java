@@ -14,13 +14,18 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
     List<Hospital> findByRoadNameAddressContaining(String keyword); // 포함
 
-    List<Hospital> findByHospitalNameContaining(String keyword); // 시작값이 keyword
+    List<Hospital> findByHospitalNameContaining(String keyword); // 포함값
 
-    List<Hospital> findByHospitalNameStartsWith(String keyword); // 시작값이 keyword
+    List<Hospital> findByHospitalNameStartsWith(String keyword); // 시작값이 keyword 가톨릭% 서울% 연세% 경희%
 
-    List<Hospital> findByHospitalNameEndsWith(String keyword); // 끝남값이 keyword
+    List<Hospital> findByHospitalNameEndsWith(String keyword); // 끝남값이 keyword %의원, %병원, %이비인후과, %치과
 
-    // 병상 수가 10개 이상 20개 미만인 병원을 모두 찾기
+    //병상 수가 10개 이상 20개 미만인 병원을 모두 찾기
     List<Hospital> findByTotalNumberOfBedsBetween(Integer start, Integer end);
+
+    //병상 수가 10개 이상 20개 미만인 병원을 모두 찾기 오름차순
+    List<Hospital> findByTotalNumberOfBedsBetweenOrderByTotalNumberOfBeds(Integer start,Integer end);
+
+
 }
 
