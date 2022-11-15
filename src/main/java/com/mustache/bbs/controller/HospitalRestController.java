@@ -25,7 +25,7 @@ public class HospitalRestController {
     public ResponseEntity<HospitalResponse> get(@PathVariable Integer id) {
         Optional<Hospital> hospitalOptional = hospitalRepository.findById(id);
         Hospital hospital = hospitalOptional.get();
-        return ResponseEntity.ok(Hospital.of(hospital));
+        return ResponseEntity.ok(Hospital.transDto(hospital));
     }
 
 
