@@ -6,14 +6,17 @@ import com.mustache.bbs.domain.entity.Review;
 import com.mustache.bbs.repository.HospitalRepository;
 
 import com.mustache.bbs.repository.ReviewRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,14 +33,14 @@ public class HospitalController {
         this.reviewRepository = reviewRepository;
     }
 
-/**
- * @PageableDefault   (https://dev-coco.tistory.com/114)
- *
- *       ○ size : 한 페이지에 담을 모델의 수를 정할 수 있다. 기본 값은 10이다.
- *       ○ sort : 정렬의 기준이 되는 속성을 정한다.
- *       ○ direction : 오름차순과 내림차순 중 기준을 선택할 수 있다.
- *       ○ Pageable pageable : PageableDefault 값을 갖고 있는 변수를 선언한다.
- * */
+    /**
+     * @PageableDefault   (https://dev-coco.tistory.com/114)
+     *
+     *       ○ size : 한 페이지에 담을 모델의 수를 정할 수 있다. 기본 값은 10이다.
+     *       ○ sort : 정렬의 기준이 되는 속성을 정한다.
+     *       ○ direction : 오름차순과 내림차순 중 기준을 선택할 수 있다.
+     *       ○ Pageable pageable : PageableDefault 값을 갖고 있는 변수를 선언한다.
+     * */
 
 
 
@@ -59,5 +62,4 @@ public class HospitalController {
         model.addAttribute("hospital", hospital.get());
         model.addAttribute("reviews", reviews);
         return "hospital/show";
-    }
-}
+    }}
