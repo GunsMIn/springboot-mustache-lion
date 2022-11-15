@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
-@Builder
+
 @Getter
 public class HospitalResponse {
     private Integer id;
@@ -15,6 +15,13 @@ public class HospitalResponse {
     private String businessTypeName;
     private Float totalAreaSize;
 
+
+    //영업중,폐업중 -> hospital엔티티의 businessStatusCoded에 따라서 영업중,폐업중
+    private String businessStatusName;
+
+    public void setBusinessStatusName(String businessStatusName) {
+        this.businessStatusName = businessStatusName;
+    }
 
 
     public HospitalResponse(Integer id, String hospitalName, String roadNameAddress, Integer patientRoomCount, Integer totalNumberOfBeds, String businessTypeName, Float totalAreaSize) {
