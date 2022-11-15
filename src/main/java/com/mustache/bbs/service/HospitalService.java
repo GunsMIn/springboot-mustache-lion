@@ -21,18 +21,19 @@ public class HospitalService {
     public HospitalResponse getHospital(Integer id) {
         Optional<Hospital> hospitalOptional = hospitalRepository.findById(id);
 
-        Hospital hospital = hospitalOptional.get();//엔티티
+        Hospital hospital = hospitalOptional.orElse(new Hospital());
 
-        HospitalResponse hospitalResponse = Hospital.transDto(hospital); // dto
+        HospitalResponse hospitalResponse = Hospital.transDto(hospital);
 
         //밑에가 진짜 비지니스 로직 BusinessStatusCode가 13이면 BusinessStatusCode가 3이면 폐업
         if (hospital.getBusinessStatusCode() == 13) {
             hospitalResponse.setBusinessStatusName("영업중");
-        } else if (hospital.getBusinessStatusCode() == 3) {
+        } else if(hospital.getBusinessStatusCode()==3){
             hospitalResponse.setBusinessStatusName("폐업");
         }else{
-            hospitalResponse.setBusinessStatusName(String.valueOf(hospital.getBusinessStatusCode()));
+            hospitalResponse.setBusinessStatusName("진료 시간을 병원에 문의해 보세요");
         }
         return hospitalResponse;
     }
+
 }
