@@ -65,9 +65,7 @@ public class ArticleController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         Optional<Article> opArticle = articleRepository.findById(id);
-        Article articlesEntity = opArticle.orElseGet(() -> {
-            return new Article("찾을 수 없는글의 제목", "찾을 수 없는 글의 내용");
-        });
+        Article articlesEntity = opArticle.get();
 
         model.addAttribute("article", articlesEntity);
         return "articles/edit";
