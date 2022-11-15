@@ -30,8 +30,8 @@ public class Hospital {
     @Column(name = "total_area_size")
     private Float totalAreaSize;
 
-    public static HospitalResponse of(Hospital hospital) {
-        return new HospitalResponse(hospital.getId(),hospital.getHospitalName(),hospital.getRoadNameAddress());
+    public static HospitalResponse transDto(Hospital hospital) {
+        return new HospitalResponse(hospital.getId(),hospital.getHospitalName(),hospital.getRoadNameAddress(),hospital.getPatientRoomCount(),hospital.getTotalNumberOfBeds(),hospital.getBusinessTypeName(),hospital.getTotalAreaSize());
     }
 
 
