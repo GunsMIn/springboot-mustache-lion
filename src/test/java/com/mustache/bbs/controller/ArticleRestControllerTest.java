@@ -1,7 +1,9 @@
 package com.mustache.bbs.controller;
 
 import com.mustache.bbs.controllerRest.ArticleRestController;
-import com.mustache.bbs.domain.dto.articleAdd.ArticleDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
+import com.mustache.bbs.domain.entity.Article;
 import com.mustache.bbs.service.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +12,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+​
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -33,7 +44,7 @@ class ArticleRestControllerTest {
     @DisplayName("Aricle restController get")
     void get() throws Exception{
         //{"id":1,"title":"안녕하세요 ","content":"첫 테스트 글입니다"}
-        ArticleDto articleDto = ArticleDto.builder()
+        ArticleAddResponseDto articleDto = ArticleAddResponseDto.builder()
                 .id(1L)
                 .title("안녕하세요")
                 .content("첫 테스트 글입니다")
@@ -58,17 +69,24 @@ class ArticleRestControllerTest {
     @Test
     @DisplayName("add Article")
     void add() throws Exception{
-       /* //given
+        //given
         String title = "Test title";
         String content = "Test content";
         Article article = new Article(8L,title,content);
 
 
         given(articleService.addArticle(title,content))
-                .willReturn(new ArticleDto(8L, "Test title", "Test content"));*/
+                .willReturn(new ArticleAddResponseDto(8L, title, content));
 
             mockMvc.perform(post("api/articles"))
-                    .
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(content)
+                .andExpect(jsonPath("$.title").value(title))
+                .andExpect(jsonPath("$.content").value(content))
+            .andExpect(jsonPath("$.content").exists());
+
+        verify(articleService.addArticle(new ArticleAddRequestDto(title, content)));
+
     }
 
 
