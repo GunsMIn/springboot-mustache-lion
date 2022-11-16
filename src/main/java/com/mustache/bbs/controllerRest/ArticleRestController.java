@@ -2,6 +2,8 @@ package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.service.ArticleService;
@@ -47,5 +49,11 @@ public class ArticleRestController {
         ArticleUpdateResponseDto articleUpdateResponseDto
                 = articleService.updateArticle(id, articleUpdateReqDto);
         return ResponseEntity.ok().body(articleUpdateResponseDto);
+    }
+
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<ArticleDeleteResponseDto> delete(@PathVariable Long id){
+        ArticleDeleteResponseDto articleDeleteResponseDto = articleService.deleteArticle(id);
+        return ResponseEntity.status(HttpStatus.OK).body(articleDeleteResponseDto);
     }
 }
