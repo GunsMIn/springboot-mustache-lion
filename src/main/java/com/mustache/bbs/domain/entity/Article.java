@@ -4,6 +4,7 @@ import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
+import com.mustache.bbs.domain.dto.articleSelect.ArticleResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import lombok.*;
 
@@ -31,6 +32,11 @@ public class Article{
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    //ArticleSelectResponseDto
+    public static ArticleResponseDto transSelectDto(Article article) {
+        return new ArticleResponseDto(article.getId(), article.getTitle(), article.getContent());
     }
 
     //ArticleAddResponseDto
