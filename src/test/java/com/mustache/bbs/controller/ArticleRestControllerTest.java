@@ -42,7 +42,7 @@ class ArticleRestControllerTest {
 
     @Test
     @DisplayName("Aricle restController get")
-    void get() throws Exception{
+    void get() throws Exception {
         //{"id":1,"title":"안녕하세요 ","content":"첫 테스트 글입니다"}
         ArticleAddResponseDto articleDto = ArticleAddResponseDto.builder()
                 .id(1L)
@@ -68,22 +68,22 @@ class ArticleRestControllerTest {
 
     @Test
     @DisplayName("add Article")
-    void add() throws Exception{
+    void add() throws Exception {
         //given
         String title = "Test title";
         String content = "Test content";
-        ArticleAddRequestDto articleReq = new ArticleAddRequestDto(title,content);
+        ArticleAddRequestDto articleReq = new ArticleAddRequestDto(title, content);
 
 
         given(articleService.addArticle(articleReq))
                 .willReturn(new ArticleAddResponseDto(8L, title, content));
 
-            mockMvc.perform(post("api/articles"))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(content)
+        mockMvc.perform(post("api/articles"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content)
                 .andExpect(jsonPath("$.title").value(title))
                 .andExpect(jsonPath("$.content").value(content))
-            .andExpect(jsonPath("$.content").exists());
+                .andExpect(jsonPath("$.content").exists());
 
         verify(articleService.addArticle(new ArticleAddRequestDto(title, content)));
 
