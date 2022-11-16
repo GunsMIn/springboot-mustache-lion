@@ -4,6 +4,7 @@ import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
+import com.mustache.bbs.domain.dto.articleListDto.ArticleListDto;
 import com.mustache.bbs.domain.dto.articleSelect.ArticleResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.management.Query;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +70,15 @@ public class ArticleService {
         articleRepository.delete(originArticle);
         ArticleDeleteResponseDto articleDeleteResponseDto = Article.transDeleteDto(originArticle);
         return articleDeleteResponseDto;
+    }
+
+    //selectAll
+    public List<ArticleListDto> selectAll() {
+        List<Article> articleList = articleRepository.findAll();
+        //컬렉션 타입은 stream 사용가능
+        List<ArticleListDto> ArticleListDtoList = articleList.stream()
+                .map(a -> new ArticleListDto(a.getId(), a.getTitle(), a.getContent()))
+                .collect(Collectors.toList());
+        return ArticleListDtoList;
     }
 }
