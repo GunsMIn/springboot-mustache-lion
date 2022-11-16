@@ -2,6 +2,8 @@ package com.mustache.bbs.domain.entity;
 
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import lombok.*;
 
@@ -22,6 +24,10 @@ public class Article{
     private String content;
 
 
+    public Article(Long id) {
+        this.id = id;
+    }
+
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
@@ -32,8 +38,13 @@ public class Article{
         return new ArticleAddResponseDto(article.getId(), article.getTitle(), article.getContent());
     }
 
-    //Article
+    //Article updateResponseDto
     public static ArticleUpdateResponseDto transUpdateDto(Article article) {
         return new ArticleUpdateResponseDto(article.getId(), article.getTitle(), article.getContent());
+    }
+
+    //Article deleteResponseDto
+    public static ArticleDeleteResponseDto transDeleteDto(Article article) {
+        return new ArticleDeleteResponseDto(article.getId());
     }
 }
