@@ -1,5 +1,6 @@
 package com.mustache.bbs.domain.entity;
 
+import com.mustache.bbs.domain.dto.ArticleDto;
 import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -23,6 +24,8 @@ public class Article{
     private String content;
 
 
-
+    public static ArticleDto transDto(Article article) {
+        return new ArticleDto(article.getId(), article.getTitle(), article.getContent());
+    }
 
 }
