@@ -72,10 +72,10 @@ class ArticleRestControllerTest {
         //given
         String title = "Test title";
         String content = "Test content";
-        Article article = new Article(8L,title,content);
+        ArticleAddRequestDto articleReq = new ArticleAddRequestDto(title,content);
 
 
-        given(articleService.addArticle(title,content))
+        given(articleService.addArticle(articleReq))
                 .willReturn(new ArticleAddResponseDto(8L, title, content));
 
             mockMvc.perform(post("api/articles"))
