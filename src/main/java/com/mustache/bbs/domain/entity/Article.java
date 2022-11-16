@@ -1,7 +1,8 @@
 package com.mustache.bbs.domain.entity;
 
-import com.mustache.bbs.domain.dto.articleAdd.ArticleDto;
-import com.mustache.bbs.domain.dto.articleAdd.ArticleRequestDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,12 +27,13 @@ public class Article{
         this.content = content;
     }
 
-    public static ArticleDto transDto(Article article) {
-        return new ArticleDto(article.getId(), article.getTitle(), article.getContent());
+    //ArticleAddResponseDto
+    public static ArticleAddResponseDto transDto(Article article) {
+        return new ArticleAddResponseDto(article.getId(), article.getTitle(), article.getContent());
     }
 
-    public static ArticleDto reqTransDto(ArticleRequestDto articleRequestDto) {
-        return new ArticleDto(articleRequestDto.getTitle(), articleRequestDto.getContent());
+    //Article
+    public static ArticleUpdateResponseDto transUpdateDto(Article article) {
+        return new ArticleUpdateResponseDto(article.getId(), article.getTitle(), article.getContent());
     }
-
 }
