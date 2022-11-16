@@ -2,6 +2,8 @@ package com.mustache.bbs.service;
 
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
+import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import com.mustache.bbs.domain.entity.Article;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.Query;
 import java.util.Optional;
 
 @Service
@@ -23,6 +26,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     //한개의 게시글을 조회하는 기능
+    @Transactional(readOnly = true)
     public ArticleAddResponseDto getArticle(Long id) {
         Optional<Article> articleOptional = articleRepository.findById(id);
         Article article = articleOptional.orElse(new Article());
@@ -52,8 +56,17 @@ public class ArticleService {
         // 여기서 변경이 됨
         ArticleUpdateResponseDto articleUpdateResponseDto = Article.transUpdateDto(originArticle);
         return articleUpdateResponseDto;
-
-
     }
 
+    //delete
+    public ArticleDeleteResponseDto deleteArticle(Long id) {
+        Optional<Article> findArticle = articleRepository.findById(id);
+        Article originArticle = findArticle.orElse(new Article()); // 영속성 컨텍스트에서 꺼내옴
+
+        //삭제 진행
+        Long deleteId = articleRepository.delete(id);
+        //삭제 완료
+        ArticleDeleteResponseDto articleDeleteResponseDto = Article.transDeleteDto(originArticle);
+        return articleDeleteResponseDto;
+    }
 }
