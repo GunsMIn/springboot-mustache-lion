@@ -2,6 +2,8 @@ package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
+import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
+import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +38,14 @@ public class ArticleRestController {
         log.info("article : {}",articleRequestDto);
         ArticleAddResponseDto articleDto = articleService.addArticle(articleRequestDto);
         return ResponseEntity.ok().body(articleDto);
+    }
+
+    @PatchMapping("/api/articles/{id}")
+    public ResponseEntity<ArticleUpdateResponseDto> update(@PathVariable Long id,
+                                                           @RequestBody ArticleUpdateReqDto articleUpdateReqDto) {
+
+        ArticleUpdateResponseDto articleUpdateResponseDto
+                = articleService.updateArticle(id, articleUpdateReqDto);
+        return ResponseEntity.ok().body(articleUpdateResponseDto);
     }
 }
