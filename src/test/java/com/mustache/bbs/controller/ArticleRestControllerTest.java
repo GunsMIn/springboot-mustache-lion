@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.RestController;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ArticleRestController.class)
 class ArticleRestControllerTest {
@@ -35,6 +38,17 @@ class ArticleRestControllerTest {
                 .build();
 
         given(articleService.getArticle(1L)).willReturn(articleDto);
+        Long articleId = 1L;
+
+        String url = String.format("/api/article/%d", articleId);
+        mockMvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists())  // $는 루트 $아래에 hospitalName이 있어야 함
+                .andExpect(jsonPath("$.title").value("안녕하세요"))
+                .andDo(print()); // http request, response내역을 출력 해라
+
+
+        verify(articleService).getArticle(articleId);// getHospital()메소드의 호출이 있었는지 확인
     }
 
 }
