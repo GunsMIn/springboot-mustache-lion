@@ -1,7 +1,7 @@
 package com.mustache.bbs.controller;
 
 import com.mustache.bbs.controllerRest.ArticleRestController;
-import com.mustache.bbs.domain.dto.ArticleDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleDto;
 import com.mustache.bbs.service.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -41,7 +42,7 @@ class ArticleRestControllerTest {
         given(articleService.getArticle(1L)).willReturn(articleDto);
         Long articleId = 1L;
 
-        String url = String.format("/api/article/%d", articleId);
+        String url = String.format("/api/articles/%d", articleId);
         mockMvc.perform(MockMvcRequestBuilders.get(url))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists())
@@ -53,5 +54,22 @@ class ArticleRestControllerTest {
 
         verify(articleService).getArticle(articleId);
     }
+
+    @Test
+    @DisplayName("add Article")
+    void add() throws Exception{
+       /* //given
+        String title = "Test title";
+        String content = "Test content";
+        Article article = new Article(8L,title,content);
+
+
+        given(articleService.addArticle(title,content))
+                .willReturn(new ArticleDto(8L, "Test title", "Test content"));*/
+
+            mockMvc.perform(post("api/articles"))
+                    .
+    }
+
 
 }
