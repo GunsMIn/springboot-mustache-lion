@@ -4,6 +4,7 @@ import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
+import com.mustache.bbs.domain.dto.articleSelect.ArticleResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.service.ArticleService;
@@ -22,11 +23,10 @@ public class ArticleRestController {
 
     //단건 조회 컨트롤러
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleAddResponseDto> get(@PathVariable Long id) {
-        ArticleAddResponseDto articleDto = articleService.getArticle(id);
+    public ResponseEntity<ArticleResponseDto> get(@PathVariable Long id) {
+        ArticleResponseDto articleDto = articleService.getArticle(id);
         return ResponseEntity.status(HttpStatus.OK).body(articleDto);
     }
-
     //add 컨트롤러
     //여기 컨트롤러에서는 dto가 2개가 사용이 될 것 이다. 
     // 1. 하나는 요청 dto  2. 다른 하나는 응답 dto

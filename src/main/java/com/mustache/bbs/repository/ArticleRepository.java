@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticleRepository extends JpaRepository<Article,Long> {
 
-    Long delete(Long id);
+   /* Long delete(Long id);*/
 
 }

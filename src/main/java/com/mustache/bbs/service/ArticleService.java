@@ -4,6 +4,7 @@ import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteReqDto;
 import com.mustache.bbs.domain.dto.articleDelte.ArticleDeleteResponseDto;
+import com.mustache.bbs.domain.dto.articleSelect.ArticleResponseDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateReqDto;
 import com.mustache.bbs.domain.dto.articleUpdate.ArticleUpdateResponseDto;
 import com.mustache.bbs.domain.entity.Article;
@@ -27,10 +28,10 @@ public class ArticleService {
 
     //한개의 게시글을 조회하는 기능
     @Transactional(readOnly = true)
-    public ArticleAddResponseDto getArticle(Long id) {
+    public ArticleResponseDto getArticle(Long id) {
         Optional<Article> articleOptional = articleRepository.findById(id);
         Article article = articleOptional.orElse(new Article());
-        ArticleAddResponseDto articleDto = Article.transDto(article);
+        ArticleResponseDto articleDto = Article.transSelectDto(article);
         return articleDto;
     }
 
@@ -61,11 +62,9 @@ public class ArticleService {
     //delete
     public ArticleDeleteResponseDto deleteArticle(Long id) {
         Optional<Article> findArticle = articleRepository.findById(id);
-        Article originArticle = findArticle.orElse(new Article()); // 영속성 컨텍스트에서 꺼내옴
+        Article originArticle = findArticle.orElse(new Article()); // 영속성 컨텍스트에서 엔티티 꺼내옴
 
-        //삭제 진행
-        Long deleteId = articleRepository.delete(id);
-        //삭제 완료
+        articleRepository.delete(originArticle);
         ArticleDeleteResponseDto articleDeleteResponseDto = Article.transDeleteDto(originArticle);
         return articleDeleteResponseDto;
     }
