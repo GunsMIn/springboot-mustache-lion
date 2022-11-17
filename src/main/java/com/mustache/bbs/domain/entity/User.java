@@ -1,5 +1,6 @@
 package com.mustache.bbs.domain.entity;
 
+import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,8 +29,17 @@ public class User {
         this.username = username;
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public static UserSelectResponse transSelectDto(User user) {
         return new UserSelectResponse(user.getId(), user.getUsername(), user.getPassword());
+    }
+
+    public static UserAddResponse transAddDto(User user) {
+        return new UserAddResponse(user.getId(),user.getUsername(), user.getPassword());
     }
 
 }

@@ -1,5 +1,7 @@
 package com.mustache.bbs.service;
 
+import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
+import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.entity.User;
@@ -15,12 +17,19 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserSelectResponse findUser(UserSelectRequest userSelectRequest) {
-        User user = userSelectRequest.toEntity(userSelectRequest);
-        Optional<User> userOptional = userRepository.findById(user.getId());
+    public UserSelectResponse findUser(Long id) {
+
+        Optional<User> userOptional = userRepository.findById(id);
         User findUser = userOptional.orElse(new User());
         UserSelectResponse userSelectResponse = User.transSelectDto(findUser);
         return userSelectResponse;
+    }
+
+    public UserAddResponse addUser(UserAddRequest userAddRequest) {
+        User user = userAddRequest.toEntity(userAddRequest);
+        User savedUser = userRepository.save(user);
+        UserAddResponse userAddResponse = User.transAddDto(savedUser);
+        return userAddResponse;
     }
 
 }
