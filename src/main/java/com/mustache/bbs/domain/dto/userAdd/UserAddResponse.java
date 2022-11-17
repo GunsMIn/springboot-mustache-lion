@@ -11,4 +11,8 @@ public class UserAddResponse {
     private String username;
     private String password;
 
+    public UserAddResponse(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
