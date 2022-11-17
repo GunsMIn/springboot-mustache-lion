@@ -26,3 +26,6 @@
 - **3. validation 코드와 모델링 코드를 분리할 수 있다.**
 - **4.요청과 응답으로 DTO를 사용하면 각각의 DTO 클래스가 데이터를 전송하는 클래스로서의 역할을 명확히 가질 수 있다.**
 <img width="607" alt="DTO" src="https://user-images.githubusercontent.com/104709432/200233512-f4d6e991-58e2-45d5-a754-d21d42547de7.PNG">
+
+#### 컨트롤러 tdd에서 Mock객체를 사용하는 이유
+<img width="606" alt="ahr" src="https://user-images.githubusercontent.com/104709432/202337823-4e874240-16fd-4ddd-95fc-c5d8795da152.PNG">
