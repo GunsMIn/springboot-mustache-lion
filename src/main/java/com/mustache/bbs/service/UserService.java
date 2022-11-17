@@ -35,7 +35,8 @@ public class UserService {
         //밑 조건에서 List가 비어있지않으면 -> 이름 중복 오류 던지기
         //비어있으면 이름중복이 안되니까 그대로 회원가입 진행
         if (!memberList.isEmpty()) {
-            throw new IllegalArgumentException("이름이 이미 존재하는 회원입니다.");
+            return new UserAddResponse("이름이 중복되는 회원", "이름이 중복되는 회원");
+           // throw new IllegalArgumentException("이름이 이미 존재하는 회원입니다.");
         }
 
         User user = userAddRequest.toEntity(userAddRequest);
