@@ -38,11 +38,10 @@ public class UserService {
             return new UserAddResponse("이름이 중복되는 회원", "이름이 중복되는 회원");
            // throw new IllegalArgumentException("이름이 이미 존재하는 회원입니다.");
         }
-
         User user = userAddRequest.toEntity(userAddRequest);
         User savedUser = userRepository.save(user);
-        UserAddResponse userAddResponse = User.transAddDto(savedUser);
-        return userAddResponse;
+
+        return new UserAddResponse(savedUser.getId(),savedUser.getUsername(),"회원 등록 성공");
     }
 
 }
