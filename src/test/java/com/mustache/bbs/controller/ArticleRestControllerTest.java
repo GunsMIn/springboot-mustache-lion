@@ -1,33 +1,27 @@
 package com.mustache.bbs.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mustache.bbs.controllerRest.ArticleRestController;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
-import com.mustache.bbs.domain.entity.Article;
+import com.mustache.bbs.domain.dto.articleSelect.ArticleResponseDto;
 import com.mustache.bbs.service.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-​
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ArticleRestController.class)
@@ -35,6 +29,9 @@ class ArticleRestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @MockBean
     ArticleService articleService;
@@ -50,7 +47,9 @@ class ArticleRestControllerTest {
                 .content("첫 테스트 글입니다")
                 .build();
 
-        given(articleService.getArticle(1L)).willReturn(articleDto);
+        given(articleService.getArticle(1L))
+                .willReturn(new ArticleResponseDto(1L,"안녕하세요","첫 테스트 글입니다"));
+
         Long articleId = 1L;
 
         String url = String.format("/api/articles/%d", articleId);
@@ -76,11 +75,10 @@ class ArticleRestControllerTest {
 
 
         given(articleService.addArticle(articleReq))
-                .willReturn(new ArticleAddResponseDto(8L, title, content));
+                .willReturn(new ArticleAddResponseDto(10L, title, content));
 
-        mockMvc.perform(post("api/articles"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content)
+        mockMvc.perform(post("/api/articles").contentType(MediaType.APPLICATION_JSON)
+                .content(content))
                 .andExpect(jsonPath("$.title").value(title))
                 .andExpect(jsonPath("$.content").value(content))
                 .andExpect(jsonPath("$.content").exists());
@@ -89,5 +87,24 @@ class ArticleRestControllerTest {
 
     }
 
+    @Test
+    @DisplayName("게시글이 잘 저장되는지 테스트")
+    void registerArticle() throws Exception {
+        ArticleAddRequestDto articleRequestDto = new ArticleAddRequestDto("Controller Test", "registerArticle Test");
+
+        given(articleService.addArticle(any(ArticleAddRequestDto.class)))
+                .willReturn(new ArticleAddResponseDto(10L, articleRequestDto.getTitle(), articleRequestDto.getContent()));
+
+        mockMvc.perform(post("/api/articles")
+                .content(objectMapper.writeValueAsBytes(articleRequestDto))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.content").exists())
+                .andDo(print());
+
+        verify(articleService).addArticle(ArgumentMatchers.refEq(articleRequestDto));
+    }
 
 }
