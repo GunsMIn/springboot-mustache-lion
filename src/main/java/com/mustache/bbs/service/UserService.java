@@ -4,6 +4,8 @@ import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
+import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
+import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateResponse;
 import com.mustache.bbs.domain.entity.User;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +42,20 @@ public class UserService {
         }
         User user = userAddRequest.toEntity(userAddRequest);
         User savedUser = userRepository.save(user);
-
         return new UserAddResponse(savedUser.getId(),savedUser.getUsername(),"회원 등록 성공");
+    }
+
+    //UPDATE SERVICE
+    public UserUpdateResponse updateUser(Long id, UserUpdateRequest userUpdateRequest) {
+
+        Optional<User> byId = userRepository.findById(id);
+        User user = byId.orElse(new User(null, "존재하지 않는 회원입니다.", "존재하지않는 회원입니다"));
+
+        //변경감지(dirty cash로 변경)
+        user.setUsername(userUpdateRequest.getUsername());
+        user.setPassword(userUpdateRequest.getPassword());
+
+        return new UserUpdateResponse(user.getId(), user.getUsername(), "회원의 변경된 비밀번호 입니다");
     }
 
 }
