@@ -25,7 +25,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserSelectResponse findUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        User findUser = userOptional.orElse(new User());
+        User findUser = userOptional.orElse(new User(id,"해당 id의 사용자가 없습니다"));
         UserSelectResponse userSelectResponse = User.transSelectDto(findUser);
         return userSelectResponse;
     }
@@ -48,8 +48,11 @@ public class UserService {
     //UPDATE SERVICE
     public UserUpdateResponse updateUser(Long id, UserUpdateRequest userUpdateRequest) {
 
-        Optional<User> byId = userRepository.findById(id);
-        User user = byId.orElse(new User(null, "존재하지 않는 회원입니다.", "존재하지않는 회원입니다"));
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new IllegalStateException("존재하지 않는 회원 입니다");
+        }
+        User user = userOptional.orElse(new User());
 
         //변경감지(dirty cash로 변경)
         user.setUsername(userUpdateRequest.getUsername());
