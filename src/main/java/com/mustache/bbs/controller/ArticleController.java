@@ -1,6 +1,6 @@
 package com.mustache.bbs.controller;
 
-import com.mustache.bbs.domain.dto.ArticleDto;
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.entity.Article;
 import com.mustache.bbs.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class ArticleController {
 
 
     @PostMapping(value="/posts")
-    public String createArticle(ArticleDto form) {
+    public String createArticle(ArticleAddResponseDto form) {
         Article articleEntity = form.toEntity();
         log.info(articleEntity.toString());
         // 2. Repository에게 Entity를 DB에 저장하게 한다.
@@ -73,7 +73,7 @@ public class ArticleController {
 
     //글 수정
     @PostMapping("/update")
-    public String update(@ModelAttribute ArticleDto dto) {
+    public String update(@ModelAttribute ArticleAddResponseDto dto) {
         log.info(dto.toString());
 
         //피피티에서는 merge를 사용한거 같지만 변경감지 사용할 것 -> dirty cash
@@ -85,6 +85,7 @@ public class ArticleController {
 
         return "redirect:/articles"+article.getId();
     }
+
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
