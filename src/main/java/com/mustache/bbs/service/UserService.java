@@ -2,6 +2,7 @@ package com.mustache.bbs.service;
 
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
+import com.mustache.bbs.domain.dto.userDeleteDto.UserDeleteResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
@@ -61,4 +62,9 @@ public class UserService {
         return new UserUpdateResponse(user.getId(), user.getUsername(), "회원의 변경된 비밀번호 입니다");
     }
 
+
+    public UserDeleteResponse deleteUser(Long id) {
+        userRepository.deleteById(id);
+        return new UserDeleteResponse(id, "회원이 삭제 되었습니다", "회원이 삭제 되었습니다");
+    }
 }

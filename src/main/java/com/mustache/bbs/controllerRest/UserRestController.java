@@ -2,6 +2,7 @@ package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
+import com.mustache.bbs.domain.dto.userDeleteDto.UserDeleteResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
@@ -35,6 +36,13 @@ public class UserRestController {
                                                          @RequestBody UserUpdateRequest userUpdateRequest) {
         UserUpdateResponse userUpdateResponse = userService.updateUser(id, userUpdateRequest);
         return ResponseEntity.ok().body(userUpdateResponse);
-
     }
+
+    @DeleteMapping("/api/users/{id}")
+    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable Long id) {
+        UserDeleteResponse userDeleteResponse = userService.deleteUser(id);
+        return ResponseEntity.ok().body(userDeleteResponse);
+    }
+
+
 }
