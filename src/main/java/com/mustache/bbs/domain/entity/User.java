@@ -2,10 +2,7 @@ package com.mustache.bbs.domain.entity;
 
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
