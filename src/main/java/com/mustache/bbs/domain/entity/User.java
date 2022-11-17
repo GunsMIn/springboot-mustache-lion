@@ -39,7 +39,7 @@ public class User {
     }
 
     public static UserAddResponse transAddDto(User user) {
-        return new UserAddResponse(user.getId(),user.getUsername(), user.getPassword());
+        return new UserAddResponse(user.getUsername(), user.getPassword());
     }
 
 }
