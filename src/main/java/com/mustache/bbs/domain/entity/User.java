@@ -33,7 +33,7 @@ public class User {
     }
 
     public static UserSelectResponse transSelectDto(User user) {
-        return new UserSelectResponse(user.getId(), user.getUsername(), user.getPassword());
+        return new UserSelectResponse(user.getId(), user.getUsername(), "회원 등록 성공");
     }
 
     public static UserAddResponse transAddDto(User user) {
