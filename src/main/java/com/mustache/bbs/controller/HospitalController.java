@@ -64,7 +64,7 @@ public class HospitalController {
     }
 
     @GetMapping("/loadName")
-    public String searchByLoadName(@RequestParam String keyword, @PageableDefault(size=5, sort="id",direction = Sort.Direction.ASC) Pageable pageable, Model model) {
+    public String searchByLoadName(@RequestParam(required = false) String keyword, @PageableDefault(size=5, sort="id",direction = Sort.Direction.ASC) Pageable pageable, Model model) {
         Page<Hospital> loadNameHosapital = hospitalRepository.findByRoadNameAddressContaining(keyword,pageable);
         model.addAttribute("hospitals", loadNameHosapital);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
