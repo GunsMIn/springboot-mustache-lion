@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,12 +64,12 @@ public class HospitalController {
     }
 
     @GetMapping("/loadName")
-    public String searchByLoadName(@RequestParam String keyword, Pageable pageable,Model model) {
+    public String searchByLoadName(@RequestParam String keyword, @PageableDefault(size=5, sort="id",direction = Sort.Direction.ASC) Pageable pageable, Model model) {
         Page<Hospital> loadNameHosapital = hospitalRepository.findByRoadNameAddressContaining(keyword,pageable);
         model.addAttribute("hospitals", loadNameHosapital);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
-        return "hospital/list"; // 페이징 완료 
+        return "hospital/list"; // 페이징 완료
     }
 }
 
