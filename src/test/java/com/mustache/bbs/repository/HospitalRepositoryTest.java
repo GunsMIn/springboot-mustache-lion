@@ -33,11 +33,12 @@ class HospitalRepositoryTest {
     }
 
     void printHospitalNameAndAddress(List<Hospital> hospitals) {
+        System.out.println(hospitals.size()+"개");
         for (var hospital : hospitals) {
             System.out.printf("%s | %s %f\n", hospital.getHospitalName(), hospital.getRoadNameAddress(), hospital.getTotalAreaSize());
         }
 
-        System.out.println(hospitals.size());
+
     }
 
 
@@ -62,14 +63,20 @@ class HospitalRepositoryTest {
 
     @Test
     void containing2() {
-        List<Hospital> hospitals = hospitalRepository.findByHospitalNameContaining("닥터 스마일");
-        printHospitalNameAndAddress(hospitals);
+        List<Hospital> hospitals = hospitalRepository.findByHospitalNameContaining("닥터스마일");
+        for (Hospital hospital : hospitals) {
+            if (hospital.getRoadNameAddress().equals("서울특별시 광진구 능동로51길 44 (중곡동)")) {
+                System.out.println("hospital = " + hospital.getRoadNameAddress() + "" +
+                        "에 있는 "+ hospital.getHospitalName());
+            }
+        }
+
     }
 
 
     @Test
     void startsWith() {
-        List<Hospital> hospitals = hospitalRepository.findByHospitalNameStartsWith("경희");// 가톨릭 서울 연세 경희
+        List<Hospital> hospitals = hospitalRepository.findByHospitalNameStartsWith("연세");// 가톨릭 서울 연세 경희
         printHospitalNameAndAddress(hospitals);
     }
 
@@ -85,6 +92,16 @@ class HospitalRepositoryTest {
         List<Hospital> hospitalList = hospitalRepository.findByTotalNumberOfBedsBetween(10, 19);
         for (Hospital hospital : hospitalList) {
             System.out.println(hospital.getHospitalName() + " | " + hospital.getTotalNumberOfBeds());
+        }
+    }
+
+    @Test
+    @DisplayName("병상 수 10개 이상 20개 미만 병원 찾기")
+    void findByTotalNumberOfBedsBetweenOrderBy(){
+        List<Hospital> hospitalList = hospitalRepository.findByTotalNumberOfBedsBetweenOrderByTotalNumberOfBeds(10, 19);
+        for (Hospital hospital : hospitalList) {
+            System.out.println(hospital.getHospitalName() + " | " + hospital.getTotalNumberOfBeds());
+
         }
     }
 }
