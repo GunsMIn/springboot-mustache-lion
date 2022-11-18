@@ -1,4 +1,4 @@
-# mustache와 jpa를 이용한 게시판
+# 병원 공공데이터 대용량 데이터 처리 / JPA를 이용한 RestApi 구현
 **멋쟁이사자처럼 활동내용**
 <img width="900" alt="___________2017-02-22______5 47 08" src="https://user-images.githubusercontent.com/104709432/198947114-5f7b3711-53b9-415c-9f38-f95072dc1cd4.png">
 <br>
