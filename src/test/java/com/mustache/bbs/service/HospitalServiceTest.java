@@ -46,14 +46,29 @@ class HospitalServiceTest {
                 0,"치과의원",
                 3,221.48F);
 
+        Hospital hospital2 = new Hospital(49681,
+                "서울특별시 광진구 능동로51길 44 (중곡동)",
+                "닥터스마일의원",0,
+                0,"의원",
+                13,72.87f);
+
+
         Mockito.when(hospitalRepository.findById(71911))
                                     .thenReturn(Optional.of(hospital));
+        Mockito.when(hospitalRepository.findById(49681))
+                .thenReturn(Optional.of(hospital2));
+
 
         HospitalResponse hospitalResponse = hospitalService.getHospital(71911);
+        HospitalResponse hospitalResponse2 = hospitalService.getHospital(49681);
 
         assertEquals(hospitalResponse.getHospitalName(),hospital.getHospitalName());
         assertEquals(hospitalResponse.getRoadNameAddress(),hospital.getRoadNameAddress());
         assertEquals(hospitalResponse.getBusinessStatusName(),"폐업");
+
+        assertEquals(hospitalResponse2.getHospitalName(),hospital2.getHospitalName());
+        assertEquals(hospitalResponse2.getRoadNameAddress(),hospital2.getRoadNameAddress());
+        assertEquals(hospitalResponse2.getBusinessStatusName(),"영업중");
 
     }
 
