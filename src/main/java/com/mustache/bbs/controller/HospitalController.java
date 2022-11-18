@@ -44,11 +44,20 @@ public class HospitalController {
      */
 
     @GetMapping("")
-    public String list(Model model, Pageable pageable) {
-        Page<Hospital> hospitals = hospitalRepository.findAll(pageable);
+    public String list(@RequestParam(required = false) String keyword, Model model,
+                       @PageableDefault(size=10, sort="id",direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Hospital> hospitals;
+        if (keyword != null) {
+             hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
+        }else{
+            hospitals = hospitalRepository.findAll(pageable);
+        }
+        log.info("지역명으로 검색한 검색어 : {}",keyword);
         log.info("size:{}", hospitals.getSize());
+
         model.addAttribute("hospitals", hospitals);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("keyword", keyword);
         model.addAttribute("next", pageable.next().getPageNumber());
         return "hospital/list";
     }
