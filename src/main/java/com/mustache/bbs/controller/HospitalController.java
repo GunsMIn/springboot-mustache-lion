@@ -34,15 +34,13 @@ public class HospitalController {
     }
 
     /**
-     * @PageableDefault   (https://dev-coco.tistory.com/114)
-     *
-     *       ○ size : 한 페이지에 담을 모델의 수를 정할 수 있다. 기본 값은 10이다.
-     *       ○ sort : 정렬의 기준이 되는 속성을 정한다.
-     *       ○ direction : 오름차순과 내림차순 중 기준을 선택할 수 있다.
-     *       ○ Pageable pageable : PageableDefault 값을 갖고 있는 변수를 선언한다.
-     * */
-
-
+     * @PageableDefault
+     * <p>
+     * ○ size : 한 페이지에 담을 모델의 수를 정할 수 있다. 기본 값은 10이다.
+     * ○ sort : 정렬의 기준이 되는 속성을 정한다.
+     * ○ direction : 오름차순과 내림차순 중 기준을 선택할 수 있다.
+     * ○ Pageable pageable : PageableDefault 값을 갖고 있는 변수를 선언한다.
+     */
 
     @GetMapping("")
     public String list(Model model, Pageable pageable) {
@@ -62,4 +60,16 @@ public class HospitalController {
         model.addAttribute("hospital", hospital.get());
         model.addAttribute("reviews", reviews);
         return "hospital/show";
-    }}
+    }
+
+    @GetMapping("/loadName")
+    public String searchByLoadName(@RequestParam String keyword, Pageable pageable,Model model) {
+        Page<Hospital> loadNameHosapital = hospitalRepository.findByRoadNameAddressContaining(keyword,pageable);
+        model.addAttribute("hospitals", loadNameHosapital);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        return "hospital/list"; // 페이징 완료 
+    }
+}
+
+
