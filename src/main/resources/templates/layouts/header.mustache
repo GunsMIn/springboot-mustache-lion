@@ -16,6 +16,7 @@
     </script>
 {{/alertMessage}}
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+
     <div class="container-fluid">
         <a class="navbar-brand" href="/articles"><h4>게시판</h4></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +48,12 @@
             </ul>
 
             <form class="d-flex" role="search" action="/hospitals">
-                <input class="form-control me-2" name="keyword" type="search" placeholder="지역명으로 검색해주세요" aria-label="Search" placeholder="지역명 검색">
+                {{#keyword}}
+                    <input class="form-control me-2" type="text" class="form-control" name="keyword" value="{{keyword}}" placeholder="지역명으로 검색해주세요" aria-label="Search">
+                {{/keyword}}
+                {{^keyword}}
+                    <input class="form-control me-2" name="keyword" type="search" placeholder="지역명으로 검색해주세요" aria-label="Search">
+                {{/keyword}}
                 <button class="btn btn-info" type="submit" >Search</button>
             </form>
         </div>
