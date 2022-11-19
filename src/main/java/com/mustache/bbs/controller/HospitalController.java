@@ -43,21 +43,19 @@ public class HospitalController {
      * ○ Pageable pageable : PageableDefault 값을 갖고 있는 변수를 선언한다.
      */
 
-    @GetMapping("")
-    public String list(@RequestParam(required = false) String keyword, Model model,
-                       @PageableDefault(size=10, sort="id",direction = Sort.Direction.ASC) Pageable pageable) {
+    //키워드(지역명) 검색 기능 + 페이징
+    @GetMapping
+    public String list(@RequestParam(required = false) String keyword,Pageable pageable,Model model)  {
         Page<Hospital> hospitals;
-        if (keyword != null) {
-             hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
-        }else{
-            hospitals = hospitalRepository.findAll(pageable);
-        }
+        if(keyword!=null) hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword,pageable);
+        else hospitals = hospitalRepository.findAll(pageable);
+
         log.info("지역명으로 검색한 검색어 : {}",keyword);
         log.info("size:{}", hospitals.getSize());
 
         model.addAttribute("hospitals", hospitals);
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("keyword", keyword);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         return "hospital/list";
     }
@@ -72,14 +70,6 @@ public class HospitalController {
         return "hospital/show";
     }
 
-    @GetMapping("/loadName")
-    public String searchByLoadName(@RequestParam(required = false) String keyword, @PageableDefault(size=5, sort="id",direction = Sort.Direction.ASC) Pageable pageable, Model model) {
-        Page<Hospital> loadNameHosapital = hospitalRepository.findByRoadNameAddressContaining(keyword,pageable);
-        model.addAttribute("hospitals", loadNameHosapital);
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        return "hospital/list"; // 페이징 완료
-    }
 }
 
 
