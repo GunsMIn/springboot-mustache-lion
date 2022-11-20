@@ -26,7 +26,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserSelectResponse findUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        User findUser = userOptional.orElse(new User(id,"해당 id의 사용자가 없습니다"));
+        User findUser = userOptional.orElse(User.builder().id(id).username("해당 유저 없습니다").password("No").build());
         UserSelectResponse userSelectResponse = User.transSelectDto(findUser);
         return userSelectResponse;
     }
@@ -41,7 +41,7 @@ public class UserService {
             return new UserAddResponse("이름이 중복되는 회원", "이름이 중복되는 회원");
            // throw new IllegalArgumentException("이름이 이미 존재하는 회원입니다.");
         }
-        User user = userAddRequest.toEntity(userAddRequest);
+        User user = userAddRequest.toEntity();
         User savedUser = userRepository.save(user);
         return new UserAddResponse(savedUser.getId(),savedUser.getUsername(),"회원 등록 성공");
     }
