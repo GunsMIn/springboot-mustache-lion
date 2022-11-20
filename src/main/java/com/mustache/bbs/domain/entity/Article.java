@@ -12,8 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter @Setter
 @ToString
 public class Article{
@@ -30,6 +29,13 @@ public class Article{
     }
 
     public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    @Builder
+    public Article(Long id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
     }
