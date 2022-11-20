@@ -1,7 +1,9 @@
 package com.mustache.bbs.domain.entity;
 
 import com.mustache.bbs.domain.dto.HospitalResponse;
+import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity @Getter
 @Table(name = "nation_wide_hospitals")
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
 public class Hospital {
 
     @Id
@@ -41,4 +43,33 @@ public class Hospital {
     }
 
 
+    // 엔티티 -> HospitalListDto(response)
+    public static HospitalListDto of(Hospital hospital) {
+        return HospitalListDto.builder()
+                .id(hospital.id)
+                .roadNameAddress(hospital.roadNameAddress)
+                .hospitalName(hospital.hospitalName)
+                .patientRoomCount(hospital.patientRoomCount)
+                .totalNumberOfBeds(hospital.totalNumberOfBeds)
+                .businessTypeName(hospital.businessTypeName)
+                .businessStatusCode(hospital.businessStatusCode)
+                .totalAreaSize(hospital.totalAreaSize)
+                .build();
+    }
+
+
+
+
+
+    @Builder
+    public Hospital(Integer id, String roadNameAddress, String hospitalName, Integer patientRoomCount, Integer totalNumberOfBeds, String businessTypeName, Integer businessStatusCode, Float totalAreaSize) {
+        this.id = id;
+        this.roadNameAddress = roadNameAddress;
+        this.hospitalName = hospitalName;
+        this.patientRoomCount = patientRoomCount;
+        this.totalNumberOfBeds = totalNumberOfBeds;
+        this.businessTypeName = businessTypeName;
+        this.businessStatusCode = businessStatusCode;
+        this.totalAreaSize = totalAreaSize;
+    }
 }
