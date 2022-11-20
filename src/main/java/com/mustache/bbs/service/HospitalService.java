@@ -1,12 +1,15 @@
 package com.mustache.bbs.service;
 
 import com.mustache.bbs.domain.dto.HospitalResponse;
+import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
 import com.mustache.bbs.domain.entity.Hospital;
 import com.mustache.bbs.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,11 +20,10 @@ public class HospitalService {
     //business_status_code
     //13 - 진료중
     //3 - 폐업
-
     public HospitalResponse getHospital(Integer id) {
         Optional<Hospital> hospitalOptional = hospitalRepository.findById(id);
 
-        Hospital hospital = hospitalOptional.orElse(new Hospital());
+        Hospital hospital = hospitalOptional.orElse(new Hospital()); // 엔티티로 꺼내옴
 
         HospitalResponse hospitalResponse = Hospital.transDto(hospital);
 
@@ -34,6 +36,14 @@ public class HospitalService {
             hospitalResponse.setBusinessStatusName("진료 시간을 병원에 문의해 보세요");
         }
         return hospitalResponse;
+    }
+
+    public List<HospitalListDto> findAll() {
+        List<Hospital> hospitalList = hospitalRepository.findAll();
+        List<HospitalListDto> hospitalListDtoList = hospitalList.stream()
+                .map(h -> Hospital.of(h)).collect(Collectors.toList());
+
+        return hospitalListDtoList;
     }
 
 }
