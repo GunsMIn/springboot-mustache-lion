@@ -48,11 +48,18 @@
             </ul>
 
             <form class="d-flex" role="search" action="/hospitals">
+                {{#hospitalName}}
+                    <input class="form-control me-2" type="text" class="form-control" name="hospitalName" value="{{hospitalName}}" placeholder="병원명으로 검색" aria-label="Search">
+                {{/hospitalName}}
+                {{^hospitalName}}
+                    <input class="form-control me-2" name="hospitalName" type="search" placeholder="병원명으로 검색" aria-label="Search">
+                {{/hospitalName}}
+                <button class="btn btn-info" type="submit" >Search</button>
                 {{#keyword}}
-                    <input class="form-control me-2" type="text" class="form-control" name="keyword" value="{{keyword}}" placeholder="지역명으로 검색해주세요" aria-label="Search">
+                    <input class="form-control me-2" type="text" class="form-control" name="keyword" value="{{keyword}}" placeholder="지역명으로 검색" aria-label="Search">
                 {{/keyword}}
                 {{^keyword}}
-                    <input class="form-control me-2" name="keyword" type="search" placeholder="지역명으로 검색해주세요" aria-label="Search">
+                    <input class="form-control me-2" name="keyword" type="search" placeholder="지역명으로 검색" aria-label="Search">
                 {{/keyword}}
                 <button class="btn btn-info" type="submit" >Search</button>
             </form>

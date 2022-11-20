@@ -3,8 +3,10 @@
     <thead>
     <tr>
         <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
+        <th scope="col">병원 이름</th>
+        <th scope="col">병원 위치</th>
+        <th scope="col">병실 수</th>
+        <th scope="col">병원 유형</th>
     </tr>
     </thead>
     <tbody>
@@ -12,6 +14,8 @@
         <th scope="row">{{hospital.id}}</th>
         <td>{{hospital.hospitalName}}</td>
         <td>{{hospital.roadNameAddress}}</td>
+        <td>{{hospital.patientRoomCount}}</td>
+        <td>{{hospital.businessTypeName}}</td>
     </tr>
     </tbody>
 </table>
