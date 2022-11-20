@@ -11,7 +11,6 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
@@ -22,7 +21,7 @@ public class User {
     private String password;
 
 
-    public User(Long id, String username) {
+   /* public User(Long id, String username) {
         this.id = id;
         this.username = username;
     }
@@ -31,9 +30,16 @@ public class User {
         this.username = username;
         this.password = password;
     }
+*/
+    @Builder
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
 
     public static UserSelectResponse transSelectDto(User user) {
-        return new UserSelectResponse(user.getId(), user.getUsername(), "회원 등록 성공");
+            return new UserSelectResponse(user.getId(), user.getUsername(), user.getPassword());
     }
 
     public static UserAddResponse transAddDto(User user) {
