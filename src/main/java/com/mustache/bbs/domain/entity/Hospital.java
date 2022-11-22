@@ -2,17 +2,13 @@ package com.mustache.bbs.domain.entity;
 
 import com.mustache.bbs.domain.dto.HospitalResponse;
 import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity @Getter
+@Entity @Getter @Setter
 @Table(name = "nation_wide_hospitals")
 @NoArgsConstructor
 public class Hospital {
@@ -33,6 +29,9 @@ public class Hospital {
     private Integer businessStatusCode; // 비지니스 로직에서 businessStatusCode로 영업,폐업 결정
     @Column(name = "total_area_size")
     private Float totalAreaSize;
+
+    @OneToMany(mappedBy = "hospital")
+    private List<Review> reviews = new ArrayList<>();
 
     // HospitalEntity를 HospitalResponse Dto로 만들어주는 부분
     public static HospitalResponse transDto(Hospital hospital) {

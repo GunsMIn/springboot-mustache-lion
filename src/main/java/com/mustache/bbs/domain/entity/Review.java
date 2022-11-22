@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +19,20 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="hospital_id")
-    private Integer hospitalId;
-    private String commentContent;
+    private String title;
+
+    private String content;
+
+    @Column(name="user_name")
     private String userName;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "hospital_id") // 연관관계의 주인
+    private Hospital hospital;
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+        hospital.getReviews().add(this);
+    }
+
 }
