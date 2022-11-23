@@ -1,5 +1,6 @@
 package com.mustache.bbs.domain.entity;
 
+import com.mustache.bbs.domain.dto.reviewDto.ReviewCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Review {
     @Column(name="user_name")
     private String userName;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY,cascade = CascadeType.ALL) // 리뷰가 병원의 fk를 갖고있다.
     @JoinColumn(name = "hospital_id") // 연관관계의 주인
     private Hospital hospital;
 
