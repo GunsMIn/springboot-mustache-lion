@@ -2,6 +2,7 @@ package com.mustache.bbs.service;
 
 import com.mustache.bbs.domain.dto.HospitalResponse;
 import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
+import com.mustache.bbs.domain.dto.hospitalDto.HospitalWithReview;
 import com.mustache.bbs.domain.entity.Hospital;
 import com.mustache.bbs.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,21 @@ public class HospitalService {
         return hospitalResponse;
     }
 
+    public HospitalWithReview getHospital2(Integer id) {
+        Optional<Hospital> hospitalOptional = hospitalRepository.findById(id);
+        Hospital hospital = hospitalOptional.orElse(new Hospital()); // 엔티티로 꺼내옴
+        HospitalWithReview hospitalWithReview = new HospitalWithReview(hospital);
+        if (hospital.getBusinessStatusCode() == 13) {
+            hospitalWithReview.setBusinessStatusName("영업중");
+        } else if(hospital.getBusinessStatusCode()==3){
+            hospitalWithReview.setBusinessStatusName("폐업");
+        }else{
+            hospitalWithReview.setBusinessStatusName("진료 시간을 병원에 문의해 보세요");
+        }
+        return hospitalWithReview;
+    }
+
+    //findAll to Json
     public List<HospitalListDto> findAll() {
         List<Hospital> hospitalList = hospitalRepository.findAll();
         List<HospitalListDto> hospitalListDtoList = hospitalList.stream()
