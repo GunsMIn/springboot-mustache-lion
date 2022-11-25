@@ -2,6 +2,7 @@ package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.dto.HospitalResponse;
 import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
+import com.mustache.bbs.domain.dto.hospitalDto.HospitalWithReview;
 import com.mustache.bbs.domain.dto.hospitalDto.Result;
 import com.mustache.bbs.service.HospitalService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,16 @@ public class HospitalRestController {
 
     private final HospitalService hospitalService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // 병원만 조회
     public ResponseEntity<HospitalResponse> get(@PathVariable Integer id) {
         HospitalResponse hospitalResponse = hospitalService.getHospital(id);//엔티티
         return ResponseEntity.ok().body(hospitalResponse); // 리턴은 dto
+    }
+
+    @GetMapping("/{id}/reviews") // 병원과 리뷰 조회
+    public ResponseEntity<HospitalWithReview> getWithReview(@PathVariable Integer id) {
+        HospitalWithReview hospitalWithReview = hospitalService.getHospital2(id);//엔티티
+        return ResponseEntity.ok().body(hospitalWithReview); // 리턴은 dto
     }
 
     //병원 전체 리스트 , count

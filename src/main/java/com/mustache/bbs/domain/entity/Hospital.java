@@ -30,9 +30,17 @@ public class Hospital {
     @Column(name = "total_area_size")
     private Float totalAreaSize;
 
-    @OneToMany(mappedBy = "hospital")
+    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+    /*편의메소드*/
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setHospital(this);
+    }
+    
+    
+    
     // HospitalEntity를 HospitalResponse Dto로 만들어주는 부분
     public static HospitalResponse transDto(Hospital hospital) {
         return new HospitalResponse(hospital.getId(),hospital.getHospitalName(),
