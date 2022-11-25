@@ -9,10 +9,12 @@ public class BookListDto {
     private Long id;
     private String bookName;
     private String authorName;
+    private String publisherName;
 
     public BookListDto(Book book) {
         this.id = book.getId();
         this.bookName = book.getName();
         this.authorName = book.getAuthor().getAuthor();
+        this.publisherName = book.getPublisher().getName();
     }
 }
