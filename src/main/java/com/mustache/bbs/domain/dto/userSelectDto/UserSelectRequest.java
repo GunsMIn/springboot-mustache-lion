@@ -16,6 +16,9 @@ public class UserSelectRequest {
     private String name;
 
     public User toEntity(UserSelectRequest userSelectRequest) {
-        return new User(userSelectRequest.getId(),userSelectRequest.getName());
+        return User.builder()
+                .id(id)
+                .username(name)
+                .build();
     }
 }

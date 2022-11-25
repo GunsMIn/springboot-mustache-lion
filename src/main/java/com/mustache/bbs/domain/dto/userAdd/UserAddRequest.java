@@ -13,11 +13,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserAddRequest {
 
-
     private String username;
     private String password;
 
-    public User toEntity(UserAddRequest userAddRequest) {
-        return new User(userAddRequest.getUsername(),userAddRequest.getPassword());
+    //빌더패턴의 엔티티로 전환
+    public User toEntity() {
+       return User.builder()
+                .username(username)
+                .password(password)
+                .build();
     }
+
+
+/*    public User toEntity(UserAddRequest userAddRequest) {
+        return new User(userAddRequest.getUsername(),userAddRequest.getPassword());
+    }*/
 }
