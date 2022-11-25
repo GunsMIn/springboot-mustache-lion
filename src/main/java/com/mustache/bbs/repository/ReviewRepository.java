@@ -14,4 +14,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @EntityGraph(attributePaths = {"hospital"})
     Optional<Review> findById(Long id);
+
+    @EntityGraph(attributePaths = {"hospital"})
+    List<Review> findAll();
 }
