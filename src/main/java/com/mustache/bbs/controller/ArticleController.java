@@ -1,5 +1,6 @@
 package com.mustache.bbs.controller;
 
+import com.mustache.bbs.domain.dto.articleAdd.ArticleAddRequestDto;
 import com.mustache.bbs.domain.dto.articleAdd.ArticleAddResponseDto;
 import com.mustache.bbs.domain.entity.Article;
 import com.mustache.bbs.repository.ArticleRepository;
@@ -30,7 +31,7 @@ public class ArticleController {
 
 
     @PostMapping(value="/posts")
-    public String createArticle(ArticleAddResponseDto form) {
+    public String createArticle(ArticleAddRequestDto form) {
         Article articleEntity = form.toEntity();
         log.info(articleEntity.toString());
         // 2. Repository에게 Entity를 DB에 저장하게 한다.
@@ -85,8 +86,7 @@ public class ArticleController {
 
         return "redirect:/articles"+article.getId();
     }
-
-
+    
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         Optional<Article> opArticle = articleRepository.findById(id);

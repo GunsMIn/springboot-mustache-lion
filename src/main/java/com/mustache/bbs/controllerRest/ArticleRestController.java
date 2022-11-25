@@ -48,10 +48,11 @@ public class ArticleRestController {
 
     @PatchMapping("/api/articles/{id}")
     public ResponseEntity<ArticleUpdateResponseDto> update(@PathVariable Long id,
-                                                           @RequestBody ArticleUpdateReqDto articleUpdateReqDto) {
+                                   @RequestBody ArticleUpdateReqDto articleUpdateReqDto) {
 
         ArticleUpdateResponseDto articleUpdateResponseDto
                 = articleService.updateArticle(id, articleUpdateReqDto);
+
         return ResponseEntity.ok().body(articleUpdateResponseDto);
     }
 

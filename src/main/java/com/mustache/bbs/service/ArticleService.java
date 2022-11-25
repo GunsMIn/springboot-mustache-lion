@@ -33,14 +33,14 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public ArticleResponseDto getArticle(Long id) {
         Optional<Article> articleOptional = articleRepository.findById(id);
-        Article article = articleOptional.orElse(new Article());
+        Article article = articleOptional.get();
         ArticleResponseDto articleDto = Article.transSelectDto(article);
         return articleDto;
     }
 
     //add
     public ArticleAddResponseDto addArticle(ArticleAddRequestDto articleRequestDto) {
-        Article article = articleRequestDto.toEntity(articleRequestDto);
+        Article article = articleRequestDto.toEntity();
         //save를 할때는 JpaRepository<Article,Long>를 사용해야 하기때문에
         //articleRequestDto -> 를 Article 타입으로 바꿔줘야한다.
         Article savedArticle = articleRepository.save(article);
@@ -52,12 +52,13 @@ public class ArticleService {
     //update
     public ArticleUpdateResponseDto updateArticle(Long id, ArticleUpdateReqDto articleUpdateReqDto) {
         Optional<Article> findArticle = articleRepository.findById(id);
-        Article originArticle = findArticle.orElse(new Article());
+        Article originArticle = findArticle.get();
 
-        //변경감지 사용할 것 (dirty cash)
+        //변경감지 사용할 것 (dirty cash) // 여기서 변경이 됨
         originArticle.setTitle(articleUpdateReqDto.getTitle());
         originArticle.setContent(articleUpdateReqDto.getContent());
-        // 여기서 변경이 됨
+
+        //엔티티 -> response DTO
         ArticleUpdateResponseDto articleUpdateResponseDto = Article.transUpdateDto(originArticle);
         return articleUpdateResponseDto;
     }
@@ -65,7 +66,7 @@ public class ArticleService {
     //delete
     public ArticleDeleteResponseDto deleteArticle(Long id) {
         Optional<Article> findArticle = articleRepository.findById(id);
-        Article originArticle = findArticle.orElse(new Article()); // 영속성 컨텍스트에서 엔티티 꺼내옴
+        Article originArticle = findArticle.get(); // 영속성 컨텍스트에서 엔티티 꺼내옴
 
         articleRepository.delete(originArticle);
         ArticleDeleteResponseDto articleDeleteResponseDto = Article.transDeleteDto(originArticle);
@@ -73,6 +74,7 @@ public class ArticleService {
     }
 
     //selectAll
+    @Transactional(readOnly = true)
     public List<ArticleListDto> selectAll() {
         List<Article> articleList = articleRepository.findAll();
         //컬렉션 타입은 stream 사용가능

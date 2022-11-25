@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.http.MediaType;
@@ -73,7 +72,6 @@ class ArticleRestControllerTest {
         String content = "Test content";
         ArticleAddRequestDto articleReq = new ArticleAddRequestDto(title, content);
 
-
         given(articleService.addArticle(articleReq))
                 .willReturn(new ArticleAddResponseDto(10L, title, content));
 
@@ -90,7 +88,8 @@ class ArticleRestControllerTest {
     @Test
     @DisplayName("게시글이 잘 저장되는지 테스트")
     void registerArticle() throws Exception {
-        ArticleAddRequestDto articleRequestDto = new ArticleAddRequestDto("Controller Test", "registerArticle Test");
+        ArticleAddRequestDto articleRequestDto =
+                new ArticleAddRequestDto("Controller Test", "registerArticle Test");
 
         given(articleService.addArticle(any(ArticleAddRequestDto.class)))
                 .willReturn(new ArticleAddResponseDto(10L, articleRequestDto.getTitle(), articleRequestDto.getContent()));
