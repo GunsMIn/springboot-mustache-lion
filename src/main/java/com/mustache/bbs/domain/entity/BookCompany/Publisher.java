@@ -1,12 +1,13 @@
 package com.mustache.bbs.domain.entity.BookCompany;
 
 import com.mustache.bbs.domain.entity.BookCompany.Book;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity @Getter
 public class Publisher {
 
     @Id

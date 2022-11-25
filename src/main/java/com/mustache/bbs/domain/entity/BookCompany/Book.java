@@ -14,7 +14,7 @@ public class Book {
 
     private String name; // 책이름
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
