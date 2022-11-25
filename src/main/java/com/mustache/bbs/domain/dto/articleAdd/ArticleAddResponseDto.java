@@ -17,11 +17,6 @@ public class ArticleAddResponseDto {
     private String title;
     private String content;
 
-    public ArticleAddResponseDto(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     public Article toEntity() {
         return new Article(this.id, this.title, this.content);
     }
