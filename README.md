@@ -7,6 +7,7 @@
 <img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 
+# AWS
 ## http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
 
 ## Hospital RestApi(병원) 
