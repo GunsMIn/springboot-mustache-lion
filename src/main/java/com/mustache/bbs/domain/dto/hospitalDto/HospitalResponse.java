@@ -22,12 +22,13 @@ public class HospitalResponse {
 
     //영업중,폐업중 -> hospital엔티티의 businessStatusCode 에 따라서 영업중,폐업중
     private String businessStatusName;
+    private String count;
 
     public void setBusinessStatusName(String businessStatusName) {
         this.businessStatusName = businessStatusName;
     }
 
-    public HospitalResponse(Integer id, String hospitalName, String roadNameAddress, Integer patientRoomCount, Integer totalNumberOfBeds, String businessTypeName, Float totalAreaSize) {
+    public HospitalResponse(Integer id, String hospitalName, String roadNameAddress, Integer patientRoomCount, Integer totalNumberOfBeds, String businessTypeName, Float totalAreaSize,Integer count) {
         this.id = id;
         this.hospitalName = hospitalName;
         this.roadNameAddress = roadNameAddress;
@@ -35,5 +36,6 @@ public class HospitalResponse {
         this.totalNumberOfBeds = totalNumberOfBeds;
         this.businessTypeName = businessTypeName;
         this.totalAreaSize = totalAreaSize;
+        this.count = "해당 병원 리뷰 " +count + "개";
     }
 }
