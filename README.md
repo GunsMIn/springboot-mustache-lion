@@ -9,20 +9,22 @@
 
 ## Musstache와 jpa를 이용하여 만드는 CRUD 게시판
 
-## 병원 RestApi
+## Hospital RestApi(병원) 
+- **Review와 @OneTomany관계**
 ### @GetMapping("/api/hospitals/{id}") :해당 id병원 정보만 조회
 ### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
 ### @GetMapping("/api/hospitals") :병원 전체 조회
 ### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
 
-## 리뷰 RestApi
-### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 
-### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
-### @GetMapping("/api/hospitals") :병원 전체 조회
-### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
+## Review RestApi(병원 리뷰)
+- **Hospital와 @ManyToOne관계**
+### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
+### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
+### @GetMapping("/api/reviews") :리뷰 전체 조회
 
-- **병원 정보만 조회**
-#### JPA를 사용하는 이유
+
+<br><br>
+# JPA를 사용하는 이유
 - **1. JPA는 자바(서버) 언어를 DB 언어로 바꿔준다**
 - **2. JPA의 핵심도구는 ENTITY와 REPOSITORY가 있다**
 - **3. ENTITY는 자바 객체를 DB가 이해할 수 있게 규격화한 데이터이다**
