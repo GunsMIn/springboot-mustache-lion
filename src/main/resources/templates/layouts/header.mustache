@@ -55,6 +55,8 @@
                     <input class="form-control me-2" name="hospitalName" type="search" placeholder="병원명으로 검색" aria-label="Search">
                 {{/hospitalName}}
                 <button class="btn btn-info" type="submit" >Search</button>
+            </form>
+            <form class="d-flex" role="search" action="/hospitals">
                 {{#keyword}}
                     <input class="form-control me-2" type="text" class="form-control" name="keyword" value="{{keyword}}" placeholder="지역명으로 검색" aria-label="Search">
                 {{/keyword}}

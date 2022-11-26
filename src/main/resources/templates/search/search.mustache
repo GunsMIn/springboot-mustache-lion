@@ -1,0 +1,26 @@
+{{>layouts/header}}
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성자</th>
+        <th scope="col">작성시간</th>
+    </tr>
+    </thead>
+    {{#searchList}}
+        <tbody>
+        <tr>
+            <th scope="row">{{id}}</th>
+            <td><a href="/{{id}}">{{roadNameAddress}}</a></td>
+            <td>{{hospitalName}}</td>
+            <td>{{totalNumberOfBeds}}</td>
+        </tr>
+        </tbody>
+    {{/searchList}}
+</table>
+
+{{>search/searchForm}}
+
+{{>layouts/footer}}
