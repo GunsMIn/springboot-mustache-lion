@@ -16,7 +16,8 @@ public class HospitalWithReview {
     private Integer totalNumberOfBeds;
     private String businessTypeName;
     private Float totalAreaSize;
-    private List<ReviewDto> reviewDtoList;
+    private List<ReviewDto> reviews;
+    private String count;
 
     //영업중,폐업중 -> hospital엔티티의 businessStatusCode 에 따라서 영업중,폐업중
     private String businessStatusName;
@@ -35,8 +36,9 @@ public class HospitalWithReview {
         this.totalNumberOfBeds = hospital.getTotalNumberOfBeds();
         this.businessTypeName = hospital.getBusinessTypeName();
         this.totalAreaSize = hospital.getTotalAreaSize();
-        this.reviewDtoList = hospital.getReviews().stream()
+        this.reviews = hospital.getReviews().stream()
                 .map(r->new ReviewDto(r)).collect(Collectors.toList());
+        this.count = "해당 병원의 리뷰 개수 :"+ hospital.getReviews().size()+ "개";
 
     }
 }

@@ -21,7 +21,6 @@ public class UserRestController {
     @GetMapping("/api/users/{id}")
     public ResponseEntity<UserSelectResponse> getUser(@PathVariable Long id) {
         UserSelectResponse userSelectResponse = userService.findUser(id);
-
         return ResponseEntity.ok().body(userSelectResponse);
     }
 
@@ -44,5 +43,6 @@ public class UserRestController {
         return ResponseEntity.ok().body(userDeleteResponse);
     }
 
-
+   /* @GetMapping("/api/users")
+    public ResponseEntity*/
 }

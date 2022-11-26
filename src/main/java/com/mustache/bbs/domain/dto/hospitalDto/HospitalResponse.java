@@ -1,4 +1,4 @@
-package com.mustache.bbs.domain.dto;
+package com.mustache.bbs.domain.dto.hospitalDto;
 
 import lombok.*;
 //빌더는 모든 멤버변수를 가지는 생성자가 필요하기 때문에 lombok을 사용할 경우 @AllArgsConstructor를 사용 필수!

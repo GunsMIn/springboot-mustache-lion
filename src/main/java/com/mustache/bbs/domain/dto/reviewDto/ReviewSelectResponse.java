@@ -20,7 +20,7 @@ public class ReviewSelectResponse {
 
     private String roadNameAddress;
 
-    private String message;
+
 
 
     public ReviewSelectResponse(Review review) {
@@ -30,6 +30,6 @@ public class ReviewSelectResponse {
         this.userName = review.getUserName();
         this.hospitalName = review.getHospital().getHospitalName();
         this.roadNameAddress = review.getHospital().getRoadNameAddress();
-        this.message = "리뷰 조회가 성공 했습니다.";
+
     }
 }

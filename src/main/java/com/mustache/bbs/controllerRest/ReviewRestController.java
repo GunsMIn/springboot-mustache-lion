@@ -24,19 +24,21 @@ public class ReviewRestController {
 
     //리뷰 id로 리뷰와 병원정보조회
     @GetMapping("/api/{id}/reviews")
-    public ReviewSelectResponse getReview(@PathVariable Long id) {
-        Review review = reviewService.findById(id);
+    public ResponseEntity<ReviewSelectResponse> getReview(@PathVariable Long id) {
+        Review review = reviewService.getReview(id);
         log.info("리뷰: {}",review);
         ReviewSelectResponse reviewDto = new ReviewSelectResponse(review);
-        return reviewDto;
+        return ResponseEntity.ok().body(reviewDto);
     }
 
+    //리뷰 쓰기
     @PostMapping("/api/{id}/reviews")
     public ResponseEntity<ReviewCreateResponse> writeReview(@PathVariable Integer id, @RequestBody ReviewCreateRequest reviewCreateRequest) {
         ReviewCreateResponse reviewCreateResponse = reviewService.add(reviewCreateRequest);
         return ResponseEntity.ok().body(reviewCreateResponse);
     }
 
+    //리뷰 전체 조회
     @GetMapping("/api/reviews")
     public  ResponseEntity<List<ReviewSelectResponse>> getReviewList() {
         List<ReviewSelectResponse> responseList = reviewService.findAll();
