@@ -1,11 +1,12 @@
 package com.mustache.bbs.controllerRest;
 
-import com.mustache.bbs.domain.dto.HospitalResponse;
+import com.mustache.bbs.domain.dto.hospitalDto.HospitalResponse;
 import com.mustache.bbs.domain.dto.hospitalDto.HospitalListDto;
 import com.mustache.bbs.domain.dto.hospitalDto.HospitalWithReview;
 import com.mustache.bbs.domain.dto.hospitalDto.Result;
 import com.mustache.bbs.service.HospitalService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/hospitals")
+@RequestMapping("/api/hospitals")
 @RequiredArgsConstructor
 public class HospitalRestController {
 
@@ -29,7 +30,7 @@ public class HospitalRestController {
 
     @GetMapping("/{id}/reviews") // 병원과 리뷰 조회
     public ResponseEntity<HospitalWithReview> getWithReview(@PathVariable Integer id) {
-        HospitalWithReview hospitalWithReview = hospitalService.getHospital2(id);//엔티티
+        HospitalWithReview hospitalWithReview = hospitalService.getHospitalWithReview(id);//엔티티
         return ResponseEntity.ok().body(hospitalWithReview); // 리턴은 dto
     }
 
@@ -39,6 +40,14 @@ public class HospitalRestController {
         List<HospitalListDto> hospitalListDtoList = hospitalService.findAll();
         return new Result(hospitalListDtoList.size(),hospitalListDtoList);
         //                    병원 총 개수           ,병원 정보 리스트
+    }
+
+    //리뷰가 있는 병원 리스트 조회
+    @GetMapping("/reviews")
+    public ResponseEntity<List<HospitalWithReview>> getListExistReview() {
+        List<HospitalWithReview> hospitalServiceAllExistReviews = hospitalService.findAllExistReview();
+        return ResponseEntity.ok()
+                .body(hospitalServiceAllExistReviews);
     }
 
 }
