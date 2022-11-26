@@ -9,9 +9,19 @@
 
 ## Musstache와 jpa를 이용하여 만드는 CRUD 게시판
 
+## 병원 RestApi
+### @GetMapping("/api/hospitals/{id}") :해당 id병원 정보만 조회
+### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
+### @GetMapping("/api/hospitals") :병원 전체 조회
+### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
 
-## 221107 (mustache탬플릿 사용)
-- **mustache탬플릿 적용 -> 인식 안될시 plugin 설치 필요**
+## 리뷰 RestApi
+### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 
+### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
+### @GetMapping("/api/hospitals") :병원 전체 조회
+### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
+
+- **병원 정보만 조회**
 #### JPA를 사용하는 이유
 - **1. JPA는 자바(서버) 언어를 DB 언어로 바꿔준다**
 - **2. JPA의 핵심도구는 ENTITY와 REPOSITORY가 있다**
