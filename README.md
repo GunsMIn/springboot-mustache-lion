@@ -27,6 +27,7 @@
 - **Publisher와 @oneToOne관계(Lazy) / Author와 @ManyToOne관계(Lazy)**
 ### @GetMapping("/api/books/{id}") : 해당 Book ID로 책/출판사/저자 조회(@EntityGraph 사용)
 ### @GetMapping("/api/books") :책/출판사/저자 전체 조회
+### @PostMapping("/api/books") : 책 등록 (출판사,저자 연관관계)
 
 
 <br><br>
