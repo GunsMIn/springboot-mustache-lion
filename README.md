@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 
 # AWS
-## http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
+#### http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
 
 ## Hospital RestApi(병원) 
 - **Review와 @OneTomany관계**
@@ -18,10 +18,15 @@
 ### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
 
 ## Review RestApi(병원 리뷰)
-- **Hospital와 @ManyToOne관계**
+- **Hospital와 @ManyToOne관계(Lazy)**
 ### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
 ### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
 ### @GetMapping("/api/reviews") :리뷰 전체 조회
+
+## Book RestApi(책)
+- **Publisher와 @oneToOne관계(Lazy) / Author와 @ManyToOne관계(Lazy)**
+### @GetMapping("/api/books/{id}") : 해당 Book ID로 책/출판사/저자 조회(@EntityGraph 사용)
+### @GetMapping("/api/books") :책/출판사/저자 전체 조회
 
 
 <br><br>
