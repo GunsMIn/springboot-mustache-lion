@@ -3,11 +3,16 @@ package com.mustache.bbs.repository;
 import com.mustache.bbs.domain.entity.Hospital;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
+
+    @EntityGraph(attributePaths={"reviews"})
+    Optional<Hospital> findById(int id);
 
     //*특정 구의 - 보건진료소, 보건지소, 보건소 모두 찾기*//*
     List<Hospital> findByBusinessTypeNameIn(List<String> businessTypes);
