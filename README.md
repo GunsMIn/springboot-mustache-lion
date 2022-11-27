@@ -1,11 +1,8 @@
 # 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현
 ## Running Docker on AWS EC2
-<img width="700" alt="aws" src="https://user-images.githubusercontent.com/104709432/204135014-c5b8d034-2b25-479b-8014-d730eb7331ef.PNG">
+<img width="850" alt="aws경로" src="https://user-images.githubusercontent.com/104709432/204135190-aaea9f66-17ab-41b7-a89e-164c5998d709.PNG">
 <br>
-<img src="https://img.shields.io/badge/Java-E34F26?style=flat&logo=Java&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
+
 
 # AWS (10만건 이상 병원 RestApi)
 ### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
