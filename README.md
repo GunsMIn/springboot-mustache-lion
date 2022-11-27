@@ -26,6 +26,12 @@
 ### @GetMapping("/api/books") :책/출판사/저자 전체 조회
 ### @PostMapping("/api/books") : 책 등록 (출판사,저자 연관관계)
 
+## Article RestApi(게시글)
+### @GetMapping("/api/articles/{id}") : 해당 ID로 게시글 조회
+### @PostMapping("/api/articles") : 게시글 등록 
+### @PatchMapping("/api/articles/{id}") : 게시글 수정(변경감지 dirty cash 사용)
+### @DeleteMapping("/api/articles/{id}") : 게시글 삭제
+### @GetMapping("/api/articles") : 게시글 전체 조회(제네릭타입을 응답 타입으로 사용하여 회원 count 기능 추가)
 
 <br><br>
 # JPA를 사용하는 이유
