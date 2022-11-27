@@ -62,7 +62,7 @@ public class HospitalService {
     public List<HospitalWithReview> findAllExistReview() {
         List<Hospital> hospitalList = hospitalRepository.findAll();
         List<HospitalWithReview> hospitalWithReviews = hospitalList.stream()
-                .filter(h -> !h.getReviews().isEmpty())
+                .filter(h -> h.getReviews().size()>0 )
                 .map(h -> new HospitalWithReview(h)).collect(Collectors.toList());
         return hospitalWithReviews;
     }
