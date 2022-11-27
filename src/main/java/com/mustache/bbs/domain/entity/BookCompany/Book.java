@@ -1,12 +1,15 @@
 package com.mustache.bbs.domain.entity.BookCompany;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.*;
 
-@Entity @Getter
+@Entity @Getter @NoArgsConstructor
 public class Book {
 
     @Id
@@ -24,6 +27,11 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-
-
+    @Builder
+    public Book(Long id, String name, Publisher publisher, Author author) {
+        this.id = id;
+        this.name = name;
+        this.publisher = publisher;
+        this.author = author;
+    }
 }
