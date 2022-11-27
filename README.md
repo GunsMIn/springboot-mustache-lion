@@ -1,4 +1,4 @@
-# 병원 공공데이터 대용량 데이터 처리 / JPA를 이용한 RestApi 구현
+# 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현
 **멋쟁이사자처럼 활동내용**
 <img width="900" alt="___________2017-02-22______5 47 08" src="https://user-images.githubusercontent.com/104709432/198947114-5f7b3711-53b9-415c-9f38-f95072dc1cd4.png">
 <br>
@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 
-# AWS
+# AWS (10만건 이상 병원 RestApi)
 #### http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
 
 ## Hospital RestApi(병원) 
