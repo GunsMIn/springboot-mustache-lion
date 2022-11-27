@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 
 # AWS (10만건 이상 병원 RestApi)
-#### http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
+### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
 
 ## Hospital RestApi(병원) 
 - **Review와 @OneTomany관계**
