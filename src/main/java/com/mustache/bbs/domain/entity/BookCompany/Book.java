@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity @Getter
 public class Book {
 
@@ -14,12 +16,14 @@ public class Book {
 
     private String name; // 책이름
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToOne // 근본적으로 생각하면 Book이 Author의 fk를 갖고있다.
+    @ManyToOne(fetch = LAZY) // 근본적으로 생각하면 Book이 Author의 fk를 갖고있다.
     @JoinColumn(name = "author_id")
     private Author author;
+
+
 
 }
