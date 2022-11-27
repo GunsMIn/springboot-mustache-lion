@@ -12,10 +12,10 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
     //*특정 구의 - 보건진료소, 보건지소, 보건소 모두 찾기*//*
     List<Hospital> findByBusinessTypeNameIn(List<String> businessTypes);
 
-    //포함되는 병원명으로 list 병원 찾기
+    //포함되는 병원명으로 list 병원 찾기(Pageable)
     Page<Hospital> findByHospitalNameContaining(String hospitalName,Pageable pageable);
 
-    //포함되는 도로명으로 list 병원 찾기 ->
+    //포함되는 도로명으로 list 병원 찾기(Pageable) ->
     Page<Hospital> findByRoadNameAddressContaining(String keyword,Pageable pageable); // 포함
 
     //포함되는 병원명으로 병원리스트 찾기
