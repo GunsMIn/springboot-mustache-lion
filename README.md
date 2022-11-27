@@ -7,12 +7,25 @@
 <img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 
-## Musstache와 jpa를 이용하여 만드는 CRUD 게시판
+# AWS
+## http://ec2-13-209-67-135.ap-northeast-2.compute.amazonaws.com:8080/hospitals
+
+## Hospital RestApi(병원) 
+- **Review와 @OneTomany관계**
+### @GetMapping("/api/hospitals/{id}") :해당 id병원 정보만 조회
+### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
+### @GetMapping("/api/hospitals") :병원 전체 조회
+### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
+
+## Review RestApi(병원 리뷰)
+- **Hospital와 @ManyToOne관계**
+### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
+### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
+### @GetMapping("/api/reviews") :리뷰 전체 조회
 
 
-## 221107 (mustache탬플릿 사용)
-- **mustache탬플릿 적용 -> 인식 안될시 plugin 설치 필요**
-#### JPA를 사용하는 이유
+<br><br>
+# JPA를 사용하는 이유
 - **1. JPA는 자바(서버) 언어를 DB 언어로 바꿔준다**
 - **2. JPA의 핵심도구는 ENTITY와 REPOSITORY가 있다**
 - **3. ENTITY는 자바 객체를 DB가 이해할 수 있게 규격화한 데이터이다**
