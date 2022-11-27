@@ -16,26 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/hospitals")
 @RequiredArgsConstructor
 public class HospitalRestController {
 
     private final HospitalService hospitalService;
 
-    @GetMapping("/{id}") // 병원만 조회
+    @GetMapping("/api/hospitals/{id}") // 병원만 조회
     public ResponseEntity<HospitalResponse> get(@PathVariable Integer id) {
         HospitalResponse hospitalResponse = hospitalService.getHospital(id);//엔티티
         return ResponseEntity.ok().body(hospitalResponse); // 리턴은 dto
     }
 
-    @GetMapping("/{id}/reviews") // 병원과 리뷰 조회
+    @GetMapping("/api/hospitals/{id}/reviews") // 병원과 리뷰 조회
     public ResponseEntity<HospitalWithReview> getWithReview(@PathVariable Integer id) {
         HospitalWithReview hospitalWithReview = hospitalService.getHospitalWithReview(id);//엔티티
         return ResponseEntity.ok().body(hospitalWithReview); // 리턴은 dto
     }
 
     //병원 전체 리스트 , count
-    @GetMapping
+    @GetMapping("/api/hospitals")
     public Result getList() {
         List<HospitalListDto> hospitalListDtoList = hospitalService.findAll();
         return new Result(hospitalListDtoList.size(),hospitalListDtoList);
@@ -43,7 +42,7 @@ public class HospitalRestController {
     }
 
     //리뷰가 있는 병원 리스트 조회
-    @GetMapping("/reviews")
+    @GetMapping("/api/hospitals/reviews")
     public ResponseEntity<List<HospitalWithReview>> getListExistReview() {
         List<HospitalWithReview> hospitalServiceAllExistReviews = hospitalService.findAllExistReview();
         return ResponseEntity.ok()
