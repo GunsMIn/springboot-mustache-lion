@@ -1,10 +1,8 @@
 package com.mustache.bbs.domain.user;
 import com.mustache.bbs.domain.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @ToString
