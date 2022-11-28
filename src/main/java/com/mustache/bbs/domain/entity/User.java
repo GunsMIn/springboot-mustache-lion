@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor @Builder
 public class User {
 
     @Id
@@ -23,22 +23,14 @@ public class User {
     private String emailAddress;
 
 
-   /* public User(Long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-*/
-    @Builder
     public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
+
+
 
     public static UserSelectResponse transSelectDto(User user) {
             return new UserSelectResponse(user.getId(), user.getUsername(), user.getPassword());
