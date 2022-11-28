@@ -8,21 +8,62 @@ import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateResponse;
 import com.mustache.bbs.domain.entity.User;
+import com.mustache.bbs.domain.user.UserDto;
+import com.mustache.bbs.domain.user.UserJoinRequest;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @Slf4j
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
 
     private final UserRepository userRepository;
 
+    //회원가입
+    public UserDto join(UserJoinRequest userJoinRequest) {
+        // 비지니스 로직 - 회원가입
+        //회원 userName(id) 중복 check
+        List<User> userListByName = userRepository.findByUsername(userJoinRequest.getUserName());
+        //중복이면 회원가입 x - > Exception(예외발생)
+        //비어있지 않다면 이미 존재하는 userName
+        if (!userListByName.isEmpty()) {
+            throw new IllegalAccessError("이미 존재하는 회원입니다");
+        }
+        User savedUser = userRepository.save(userJoinRequest.toEntity());
+        log.info("savedUser : {}" ,savedUser);
+        return UserDto.builder()
+                .id(savedUser.getId())
+                .userName(savedUser.getUsername())
+                .emailAddress(savedUser.getEmailAddress())
+                .build();
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     /****************************************************************************************************/
     @Transactional(readOnly = true)
     public UserSelectResponse findUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
