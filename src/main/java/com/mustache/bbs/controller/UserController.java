@@ -23,6 +23,7 @@ public class UserController {
         log.info("userJoinRequest :{} ", userJoinRequest);
         UserDto userDto = userService.join(userJoinRequest);
         log.info("userDto :{} ", userDto);
-        return Response.success(new UserJoinResponse(userDto.getUserName(), userDto.getEmailAddress()));
-    } 
+        UserJoinResponse userJoinResponse = new UserJoinResponse(userDto.getUserName(), userDto.getEmailAddress());
+        return Response.success(userJoinResponse);
+    }
 }
