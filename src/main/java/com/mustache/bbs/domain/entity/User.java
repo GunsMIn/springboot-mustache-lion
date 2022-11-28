@@ -3,6 +3,7 @@ package com.mustache.bbs.domain.entity;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class User {
 
     @Id
@@ -19,6 +20,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String emailAddress;
 
 
    /* public User(Long id, String username) {
