@@ -35,12 +35,11 @@ public class UserService {
         List<User> userListByName = userRepository.findByUsername(userJoinRequest.getUserName());
         //중복이면 회원가입 x ~ 비어있지 않다면 이미 존재하는 userName - > Exception(예외발생)
         if (!userListByName.isEmpty()) {
-            throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME
-                    ,String.format("UserName:%s", userJoinRequest.getUserName()));
+            throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
-        User savedUser = userRepository.save(userJoinRequest.toEntity());
+        User savedUser = userRepository.save(userJoinRequest.toEntity()); // 디비 저장
         log.info("savedUser : {}" ,savedUser);
-        return UserDto.builder()
+        return UserDto.builder() // 엔티티 - > dto
                 .id(savedUser.getId())
                 .userName(savedUser.getUsername())
                 .emailAddress(savedUser.getEmailAddress())
