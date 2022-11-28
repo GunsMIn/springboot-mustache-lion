@@ -7,9 +7,12 @@ import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateResponse;
+import com.mustache.bbs.domain.entity.Hospital;
 import com.mustache.bbs.domain.entity.User;
 import com.mustache.bbs.domain.user.UserDto;
 import com.mustache.bbs.domain.user.UserJoinRequest;
+import com.mustache.bbs.exceptionManager.ErrorCode;
+import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +31,12 @@ public class UserService {
 
     //회원가입
     public UserDto join(UserJoinRequest userJoinRequest) {
-        // 비지니스 로직 - 회원가입
         //회원 userName(id) 중복 check
         List<User> userListByName = userRepository.findByUsername(userJoinRequest.getUserName());
-        //중복이면 회원가입 x - > Exception(예외발생)
-        //비어있지 않다면 이미 존재하는 userName
+        //중복이면 회원가입 x ~ 비어있지 않다면 이미 존재하는 userName - > Exception(예외발생)
         if (!userListByName.isEmpty()) {
-            throw new IllegalAccessError("이미 존재하는 회원입니다");
+            throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME
+                    ,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
         User savedUser = userRepository.save(userJoinRequest.toEntity());
         log.info("savedUser : {}" ,savedUser);
