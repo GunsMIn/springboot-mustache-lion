@@ -13,11 +13,11 @@ public class UserJoinRequest {
 
 
     //dto -> entity
-    public User toEntity() {
+    public User toEntity(String password) {
         return User.builder()
-                .username(userName)
+                .username(this.userName)
                 .password(password)
-                .emailAddress(emailAddress)
+                .emailAddress(this.emailAddress)
                 .build();
     }
 }
