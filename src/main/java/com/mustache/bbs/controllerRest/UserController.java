@@ -1,9 +1,7 @@
 package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.Response;
-import com.mustache.bbs.domain.user.UserDto;
-import com.mustache.bbs.domain.user.UserJoinRequest;
-import com.mustache.bbs.domain.user.UserJoinResponse;
+import com.mustache.bbs.domain.user.*;
 import com.mustache.bbs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +23,12 @@ public class UserController {
         log.info("userDto :{} ", userDto);
         UserJoinResponse userJoinResponse = new UserJoinResponse(userDto.getUserName(), userDto.getEmailAddress());
         return Response.success(userJoinResponse);
+    }
+
+    @PostMapping("/login")
+    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
+        log.info("userLoginRequest : {} ",userLoginRequest);
+       String token = userService.login(userLoginRequest.getUserName(), userLoginRequest.getPassword());
+        return Response.success(new UserLoginResponse(token));
     }
 }
