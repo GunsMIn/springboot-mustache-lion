@@ -34,8 +34,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder; //
 
-    @Value("${jwt.token.secret}")
+    @Value("${jwt.token.secret}") // yml의 값을 가져올 수 있다.
     private String secretKey;
+
     private long expireTimeMs = 1000 * 60 * 60; // 1시간
 
     //회원가입
@@ -47,9 +48,9 @@ public class UserService {
             throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
         //user를 저장하는데 password는 암호화해줘서 넣어줄것이다. encoder.encode(password)를 해주면 암호화된다.
-        String jwtPassword = encoder.encode(userJoinRequest.getPassword());
+        String encodePassword = encoder.encode(userJoinRequest.getPassword());
         User savedUser =
-                userRepository.save(userJoinRequest.toEntity(jwtPassword)); // 디비 저장
+                userRepository.save(userJoinRequest.toEntity(encodePassword)); // 디비 저장 (암호화된 비밀번호 저장)
 
         log.info("savedUser : {}" ,savedUser);
         return UserDto.builder() // 엔티티 - > dto
