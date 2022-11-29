@@ -16,6 +16,7 @@ import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     //회원가입
     public UserDto join(UserJoinRequest userJoinRequest) {
@@ -37,7 +39,10 @@ public class UserService {
         if (!userListByName.isEmpty()) {
             throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
-        User savedUser = userRepository.save(userJoinRequest.toEntity()); // 디비 저장
+
+        User savedUser =
+                userRepository.save(userJoinRequest.toEntity(encoder.encode(userJoinRequest.getPassword()))); // 디비 저장
+
         log.info("savedUser : {}" ,savedUser);
         return UserDto.builder() // 엔티티 - > dto
                 .id(savedUser.getId())
