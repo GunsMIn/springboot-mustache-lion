@@ -39,10 +39,11 @@ public class UserService {
         if (!userListByName.isEmpty()) {
             throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
-
+        //user를 저장하는데 password는 암호화해줘서 넣어줄것이다. encoder.encode(password)를 해주면 JWT토큰으로 변환된다.
+        String jwtPassword = encoder.encode(userJoinRequest.getPassword());
         User savedUser =
-                userRepository.save(userJoinRequest.toEntity(encoder.encode(userJoinRequest.getPassword()))); // 디비 저장
-
+                userRepository.save(userJoinRequest.toEntity(jwtPassword)); // 디비 저장
+        
         log.info("savedUser : {}" ,savedUser);
         return UserDto.builder() // 엔티티 - > dto
                 .id(savedUser.getId())
