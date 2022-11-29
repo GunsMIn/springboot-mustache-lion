@@ -1,5 +1,6 @@
 package com.mustache.bbs.service;
 
+import com.mustache.bbs.Utils.JwtTokenUtil;
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userDeleteDto.UserDeleteResponse;
@@ -17,6 +18,7 @@ import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder encoder;
+    private final BCryptPasswordEncoder encoder; //
+
+    @Value("${jwt.token.secret}")
+    private String secretKey;
+    private long expireTimeMs = 1000 * 60 * 60; // 1시간
 
     //회원가입
     public UserDto join(UserJoinRequest userJoinRequest) {
@@ -40,7 +46,7 @@ public class UserService {
         if (!userListByName.isEmpty()) {
             throw new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME,String.format("UserName:%s", userJoinRequest.getUserName()));
         }
-        //user를 저장하는데 password는 암호화해줘서 넣어줄것이다. encoder.encode(password)를 해주면 JWT토큰으로 변환된다.
+        //user를 저장하는데 password는 암호화해줘서 넣어줄것이다. encoder.encode(password)를 해주면 암호화된다.
         String jwtPassword = encoder.encode(userJoinRequest.getPassword());
         User savedUser =
                 userRepository.save(userJoinRequest.toEntity(jwtPassword)); // 디비 저장
@@ -53,20 +59,19 @@ public class UserService {
                 .build();
      }
 
-
+    //로그인 -> (1.아이디 존재 여부 2.비밀번호 일치 여부)
      public String login(String userName,String password) {
         log.info("서비스 아이디 비밀번호 :{} / {}" , userName,password);
-        //아이디 존재 여부 체크
+        //1.아이디 존재 여부 체크
         User user = userRepository.findUserByUsername(userName)
                  .orElseThrow(() -> new HospitalReviewException(ErrorCode.NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userName)));
 
-        //비밀번호 유효성 검사
+        //2.비밀번호 유효성 검사
          if (!encoder.matches(password, user.getPassword())) {
-             log.info("비밀번호 오류" );
-             throw new HospitalReviewException(ErrorCode.INVALID_PASSWORD,"password가 잘못됐습니다");
+             throw new HospitalReviewException(ErrorCode.INVALID_PASSWORD,"해당 userName의 password가 잘못됐습니다");
          }
          //두 가지 확인중 예외 안났으면 Token발행
-         return "";
+         return JwtTokenUtil.generateToken(userName,secretKey,expireTimeMs);
      }
 
 
