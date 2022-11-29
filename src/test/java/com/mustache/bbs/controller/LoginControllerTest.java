@@ -1,6 +1,7 @@
 package com.mustache.bbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mustache.bbs.controllerRest.UserController;
 import com.mustache.bbs.domain.user.UserDto;
 import com.mustache.bbs.domain.user.UserJoinRequest;
 import com.mustache.bbs.exceptionManager.ErrorCode;
@@ -8,15 +9,16 @@ import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,8 +37,12 @@ class LoginControllerTest {
     @MockBean
     UserService userService;
 
+    @MockBean
+    BCryptPasswordEncoder encoder;
+
     @Test
     @DisplayName("회원가입 성공")
+    @WithMockUser
     void join_success() throws Exception {
         //join을 하려면 UserJoinRequest(dto가 필요)
         UserJoinRequest userJoinRequest = UserJoinRequest.builder()
@@ -47,7 +53,9 @@ class LoginControllerTest {
         //when(이러한 메소드를 하면),thenReturn(mock(~) 을 반환한다)
         when(userService.join(any())).thenReturn(mock(UserDto.class));
 
-        mockMvc.perform(post("/api/v1/users/join").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/api/v1/users/join")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(userJoinRequest))) //objectMapper.writeValueAsBytes -> String 타입으로 변환
                 .andDo(print())
                 .andExpect(status().isOk());
