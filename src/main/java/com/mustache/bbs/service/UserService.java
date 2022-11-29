@@ -12,6 +12,7 @@ import com.mustache.bbs.domain.entity.User;
 import com.mustache.bbs.domain.user.UserDto;
 import com.mustache.bbs.domain.user.UserJoinRequest;
 import com.mustache.bbs.exceptionManager.ErrorCode;
+import com.mustache.bbs.exceptionManager.ErrorPractie.ErrorResult;
 import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class UserService {
         String jwtPassword = encoder.encode(userJoinRequest.getPassword());
         User savedUser =
                 userRepository.save(userJoinRequest.toEntity(jwtPassword)); // 디비 저장
-        
+
         log.info("savedUser : {}" ,savedUser);
         return UserDto.builder() // 엔티티 - > dto
                 .id(savedUser.getId())
@@ -52,6 +53,21 @@ public class UserService {
                 .build();
      }
 
+
+     public String login(String userName,String password) {
+        log.info("서비스 아이디 비밀번호 :{} / {}" , userName,password);
+        //아이디 존재 여부 체크
+        User user = userRepository.findUserByUsername(userName)
+                 .orElseThrow(() -> new HospitalReviewException(ErrorCode.NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userName)));
+
+        //비밀번호 유효성 검사
+         if (!encoder.matches(password, user.getPassword())) {
+             log.info("비밀번호 오류" );
+             throw new HospitalReviewException(ErrorCode.INVALID_PASSWORD,"password가 잘못됐습니다");
+         }
+         //두 가지 확인중 예외 안났으면 Token발행
+         return "";
+     }
 
 
 
