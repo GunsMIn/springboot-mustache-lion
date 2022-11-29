@@ -1,4 +1,4 @@
-package com.mustache.bbs.controller;
+package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.Response;
 import com.mustache.bbs.domain.user.UserDto;
