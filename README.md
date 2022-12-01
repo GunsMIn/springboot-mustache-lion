@@ -33,6 +33,12 @@
 ### @DeleteMapping("/api/articles/{id}") : 게시글 삭제
 ### @GetMapping("/api/articles") : 게시글 전체 조회(제네릭타입을 응답 타입으로 사용하여 회원 count 기능 추가)
 
+## User RestApi(회원)
+### @PostMapping("/api/users/join") : 회원가입 api -> BCryptPasswordEncoder를 사용하여 비밀번호 암호화 후 DB SAVE
+### @PostMapping("/api/users/login") : 로그인 -> 로그인 성공 시 Jwt토큰 반환
+
+
+
 <br><br>
 # JPA를 사용하는 이유
 - **1. JPA는 자바(서버) 언어를 DB 언어로 바꿔준다**
