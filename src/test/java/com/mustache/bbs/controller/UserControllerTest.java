@@ -1,12 +1,16 @@
 package com.mustache.bbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mustache.bbs.controllerRest.UserRestController;
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
+import com.mustache.bbs.domain.user.UserJoinRequest;
 import com.mustache.bbs.service.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +21,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
+@WebMvcTest(UserRestController.class)
 class UserControllerTest {
 
     @Autowired
@@ -35,6 +38,26 @@ class UserControllerTest {
 
     @MockBean
     UserService userService;
+
+
+    @Test
+    @DisplayName("회원가입 성공")
+    void join_success() throws Exception {
+        UserJoinRequest userJoinRequest = UserJoinRequest.builder()
+                .userName("kimgunwoo")
+                .password("kk1234")
+                .emailAddress("gunwoo4670@gmail.com")
+                .build();
+
+
+    }
+
+
+
+
+
+
+
 
 
     @Test
@@ -83,7 +106,7 @@ class UserControllerTest {
                 .andDo(print());
 
         verify(userService).addUser(ArgumentMatchers.refEq(userAddRequest));
-
     }
+
 
 }
