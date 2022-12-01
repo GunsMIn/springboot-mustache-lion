@@ -13,7 +13,7 @@ public class UserJoinRequest {
 
 
     //dto -> entity
-    public User toEntity(String password) {
+    public User toEntity(String password) { // 매개변수로 넘어오는 password는 암호화된 password
         return User.builder()
                 .username(this.userName)
                 .password(password)
