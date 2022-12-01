@@ -16,6 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
+    //회원가입 컨트롤러
     @PostMapping("/join")
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest userJoinRequest) {
         log.info("userJoinRequest :{} ", userJoinRequest);
@@ -25,10 +26,11 @@ public class UserController {
         return Response.success(userJoinResponse);
     }
 
+    //로그인 컨트롤러
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         log.info("userLoginRequest : {} ",userLoginRequest);
        String token = userService.login(userLoginRequest.getUserName(), userLoginRequest.getPassword());
-        return Response.success(new UserLoginResponse(token));
+        return Response.success(new UserLoginResponse(token)); // 로그인 성공 시 토큰만 반환
     }
 }
