@@ -1,4 +1,4 @@
-# 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현 / Spring Security (JWT)
+# 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현 / Spring Security (JWT 토큰)
 ## Running Docker on AWS EC2
 <img width="850" alt="aws경로" src="https://user-images.githubusercontent.com/104709432/204135190-aaea9f66-17ab-41b7-a89e-164c5998d709.PNG">
 <br>
@@ -32,7 +32,7 @@
 
 ### @PostMapping("/api/users/login") : 로그인 -> 로그인 성공 시 Jwt토큰 반환
 #### 🆗로그인 성공 시 - > JWT토큰 (인증,인가)
-<img width="550" alt="캡처4" src="https://user-images.githubusercontent.com/104709432/204979030-d5385eec-7a57-45ec-90ae-c561b77e3598.PNG"><br>
+<img width="550" alt="캡처5" src="https://user-images.githubusercontent.com/104709432/204987426-c4ea9a39-a668-4ff1-b16c-a66af691a7a3.PNG">
 #### 🆖로그인 실패 시<br>
 - **1.userName 존재 X 로그인 실패->HttpStatus.NOT_FOUND(404), message = "Not Found errorCode"처리**
 <img width="550" alt="캡처7" src="https://user-images.githubusercontent.com/104709432/204981292-1375306f-966a-4b19-8f80-c15d5b97d5a0.PNG"><BR>
