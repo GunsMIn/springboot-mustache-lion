@@ -20,6 +20,23 @@
 ### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
 ### @GetMapping("/api/reviews") :리뷰 전체 조회
 
+# User RestApi(회원) - JWT 로그인 구현
+### @PostMapping("/api/users/join") : 회원가입 api -> BCryptPasswordEncoder를 사용하여 비밀번호 암호화 후 DB저장
+#### 🆗회원가입 성공 시
+<img width="400" alt="캡처2" src="https://user-images.githubusercontent.com/104709432/204977035-f6ff4669-d473-4d0e-923b-80fcc24129db.PNG"> <br>
+#### 🆖회원가입 실패 시<br>
+- **중복되는 userName존재 할 때 ExceptionHandeler에서 HttpStatus.CONFLICT(409), message = "User name is duplicated errorCode"처리**
+<img width="550" alt="캡처4" src="https://user-images.githubusercontent.com/104709432/204979030-d5385eec-7a57-45ec-90ae-c561b77e3598.PNG">
+
+### @PostMapping("/api/users/login") : 로그인 -> 로그인 성공 시 Jwt토큰 반환
+#### 🆗로그인 성공 시 - > JWT토큰 (인증,인가)
+<img width="550" alt="캡처4" src="https://user-images.githubusercontent.com/104709432/204979030-d5385eec-7a57-45ec-90ae-c561b77e3598.PNG"><br>
+#### 🆖로그인 실패 시<br>
+- **1.userName 존재 X 로그인 실패->HttpStatus.NOT_FOUND(404), message = "Not Found errorCode"처리**
+<img width="550" alt="캡처7" src="https://user-images.githubusercontent.com/104709432/204981292-1375306f-966a-4b19-8f80-c15d5b97d5a0.PNG"><BR>
+- **2.비밀번호 틀릴 시 로그인 실패->HttpStatus.BAD_REQUEST(400), message = "Not correct password errorCode"처리**
+<img width="550" alt="캡처6" src="https://user-images.githubusercontent.com/104709432/204980562-6777a266-6046-480a-bed1-be44673ac462.PNG">
+
 ## Book RestApi(책)
 - **Publisher와 @oneToOne관계(Lazy) / Author와 @ManyToOne관계(Lazy)**
 ### @GetMapping("/api/books/{id}") : 해당 Book ID로 책/출판사/저자 조회(@EntityGraph 사용)
@@ -33,9 +50,7 @@
 ### @DeleteMapping("/api/articles/{id}") : 게시글 삭제
 ### @GetMapping("/api/articles") : 게시글 전체 조회(제네릭타입을 응답 타입으로 사용하여 회원 count 기능 추가)
 
-## User RestApi(회원)
-### @PostMapping("/api/users/join") : 회원가입 api -> BCryptPasswordEncoder를 사용하여 비밀번호 암호화 후 DB SAVE
-### @PostMapping("/api/users/login") : 로그인 -> 로그인 성공 시 Jwt토큰 반환
+
 
 
 
