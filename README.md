@@ -1,4 +1,4 @@
-# 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현
+# 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현 / Spring Security (JWT)
 ## Running Docker on AWS EC2
 <img width="850" alt="aws경로" src="https://user-images.githubusercontent.com/104709432/204135190-aaea9f66-17ab-41b7-a89e-164c5998d709.PNG">
 <br>
