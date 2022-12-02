@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mustache.bbs.controllerRest.UserController;
 import com.mustache.bbs.domain.user.UserDto;
 import com.mustache.bbs.domain.user.UserJoinRequest;
+import com.mustache.bbs.domain.user.UserLoginRequest;
 import com.mustache.bbs.exceptionManager.ErrorCode;
 import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -67,11 +69,10 @@ class LoginControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
     @Test
     @DisplayName("회원가입 실패")
     void join_fail() throws Exception {
-
-
 
         when(userService.join(any()))
                 .thenThrow(new HospitalReviewException(ErrorCode.DUPLICATED_USER_NAME, ""));
@@ -84,18 +85,41 @@ class LoginControllerTest {
     }
 
     @Test
-    @DisplayName("로그인 실패 - ID 없음")
+    @DisplayName("로그인 성공 비지니스로직 2개 통솨")
     @WithMockUser
-    void login_fail1() throws Exception{
+    void login_success() throws Exception{
+        String userName = "kimgunwoo";
+        String password = "1234";
 
         // id, pw를 보내서
-        when(userService.login(any(), any())).thenThrow(new HospitalReviewException(ErrorCode.NOT_FOUNDED, ""));
+        when(userService.login(any(), any()))
+                .thenReturn("token");
 
         // NOT_FOUND를 받으면 잘 만든 것이다
         mockMvc.perform(post("/api/v1/users/login")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(userJoinRequest)))
+                .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName,password))))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("로그인 실패 - ID 없을 시")
+    @WithMockUser
+    void login_fail1() throws Exception{
+        String userName = "kimgunwoo";
+        String password = "1234";
+
+        // id, pw를 보내서
+        when(userService.login(userName, password))
+                .thenThrow(new HospitalReviewException(ErrorCode.NOT_FOUNDED, ""));
+
+        // NOT_FOUND를 받으면 잘 만든 것이다
+        mockMvc.perform(post("/api/v1/users/login")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName,password))))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -104,13 +128,17 @@ class LoginControllerTest {
     @DisplayName("로그인 실패 - password 오류")
     @WithMockUser
     void login_fail2() throws Exception{
+        String userName = "kimgunwoo";
+        String password = "1234";
+        when(userService.login(any(), any()))
+                .thenThrow(new HospitalReviewException(ErrorCode.INVALID_PASSWORD, ""));
+
+        mockMvc.perform(post("/api/v1/users/login").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName, password)))
+                .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
 
     }
 
-    @Test
-    @DisplayName("로그인 성공")
-    @WithMockUser
-    void login_success() throws Exception{
-
-    }
 }
