@@ -5,11 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
+
+    @Query(value="select h from Hospital h left join h.reviews",
+            countQuery ="select count(h) from Hospital h")
+    Page<Hospital> findAll(Pageable pageable);
 
     @EntityGraph(attributePaths={"reviews"})
     Optional<Hospital> findById(int id);
@@ -18,9 +23,13 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
     List<Hospital> findByBusinessTypeNameIn(List<String> businessTypes);
 
     //포함되는 병원명으로 list 병원 찾기(Pageable)
+    @Query(value="select h from Hospital h left join h.reviews",
+            countQuery ="select count(h) from Hospital h")
     Page<Hospital> findByHospitalNameContaining(String hospitalName,Pageable pageable);
 
     //포함되는 도로명으로 list 병원 찾기(Pageable) ->
+    @Query(value="select h from Hospital h left join h.reviews",
+            countQuery ="select count(h) from Hospital h")
     Page<Hospital> findByRoadNameAddressContaining(String keyword,Pageable pageable); // 포함
 
     //포함되는 병원명으로 병원리스트 찾기
