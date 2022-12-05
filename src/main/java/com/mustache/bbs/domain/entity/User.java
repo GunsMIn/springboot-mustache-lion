@@ -5,9 +5,7 @@ import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,9 +16,13 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
     private String emailAddress;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 
 
