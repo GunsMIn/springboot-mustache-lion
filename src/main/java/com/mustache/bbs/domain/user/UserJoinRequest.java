@@ -1,5 +1,6 @@
 package com.mustache.bbs.domain.user;
 import com.mustache.bbs.domain.entity.User;
+import com.mustache.bbs.domain.entity.UserRole;
 import lombok.*;
 
 @Builder
@@ -18,6 +19,7 @@ public class UserJoinRequest {
                 .username(this.userName)
                 .password(password)
                 .emailAddress(this.emailAddress)
+                .role(UserRole.USER)
                 .build();
     }
 }
