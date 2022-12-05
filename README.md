@@ -18,9 +18,9 @@
 - **Hospital와 @ManyToOne관계(Lazy)**
 ### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
 ### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
-### @GetMapping("/api/reviews") :리뷰 전체 조회
-# Spring Security + JWT Token 인증 / 인가의 개발
-### [Spring Security 로그인](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
+### @GetMapping("/api/reviews") :리뷰 전체 조회</br>
+# Spring Security + JWT Token
+### [Spring Security 프로젝트 적용 (Velog 정리본)](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
 ## User RestApi(회원) - JWT 로그인 구현
 ### @PostMapping("/api/users/join") : 회원가입 api -> BCryptPasswordEncoder를 사용하여 비밀번호 암호화 후 DB저장
 #### 🆗회원가입 성공 시
