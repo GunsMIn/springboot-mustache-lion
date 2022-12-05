@@ -1,19 +1,16 @@
 package com.mustache.bbs.service;
 
-import com.mustache.bbs.Utils.JwtTokenUtil;
+import com.mustache.bbs.utils.JwtTokenUtil;
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
 import com.mustache.bbs.domain.dto.userAdd.UserAddResponse;
 import com.mustache.bbs.domain.dto.userDeleteDto.UserDeleteResponse;
-import com.mustache.bbs.domain.dto.userSelectDto.UserSelectRequest;
 import com.mustache.bbs.domain.dto.userSelectDto.UserSelectResponse;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateRequest;
 import com.mustache.bbs.domain.dto.userUpdateDto.UserUpdateResponse;
-import com.mustache.bbs.domain.entity.Hospital;
 import com.mustache.bbs.domain.entity.User;
 import com.mustache.bbs.domain.user.UserDto;
 import com.mustache.bbs.domain.user.UserJoinRequest;
 import com.mustache.bbs.exceptionManager.ErrorCode;
-import com.mustache.bbs.exceptionManager.ErrorPractie.ErrorResult;
 import com.mustache.bbs.exceptionManager.HospitalReviewException;
 import com.mustache.bbs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -72,13 +69,15 @@ public class UserService {
              throw new HospitalReviewException(ErrorCode.INVALID_PASSWORD,"해당 userName의 password가 잘못됐습니다");
          }
          //두 가지 확인중 예외 안났으면 Token발행
-         return JwtTokenUtil.generateToken(userName,secretKey,expireTimeMs);
+         String token = JwtTokenUtil.generateToken(userName, secretKey, expireTimeMs);
+         return token;
      }
 
 
-
-
-
+    public User getUserByUserName(String userName) {
+        return userRepository.findUserByUsername(userName)
+                .orElseThrow(() -> new HospitalReviewException(ErrorCode.NOT_FOUNDED, ""));
+    }
 
 
 
