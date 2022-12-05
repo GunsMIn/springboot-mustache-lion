@@ -18,4 +18,17 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    private static Claims extractClaims(String token, String key) {
+        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    }
+
+    public static boolean isExpired(String token, String secretkey) {
+        // expire timestamp를 return함
+        Date expiredDate = extractClaims(token, secretkey).getExpiration();
+        return expiredDate.before(new Date());
+    }
+
+
+
+
 }
