@@ -75,7 +75,18 @@ public class VisitService {
         return visitSelectResponseList;
     }
 
-
+    // //GET /api/v1/visits/users/{id} → 특정 user의 기록 조회
+    public List<VisitSelectResponse> getByUserInfoToVisit(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = userOptional.orElseThrow(() -> new RuntimeException("해당 회원은 존재하지 않습니다."));
+        //방문리스트
+        List<VisitSelectResponse> list = getList();
+        //방문리스트의 userId와 현재 userId 비교 filter사용
+        List<VisitSelectResponse> findUserVisit
+                = list.stream().filter(visit -> user.getId()==visit.getUserId())
+                .collect(Collectors.toList());
+        return findUserVisit;
+    }
 
 
 }
