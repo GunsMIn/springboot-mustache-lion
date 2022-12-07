@@ -14,7 +14,9 @@ import com.mustache.bbs.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +56,7 @@ public class VisitService {
 
         return visitCreateResponse;
     }
-
+    //방문 ID로 조회
     public VisitSelectResponse getOne(Long id) {
         Optional<Visit> visitOptional = visitRepository.findById(id);
         Visit visit = visitOptional.orElseThrow(() ->new RuntimeException("해당 병원방문에 대한 정보는 존재하지 않습니다"));
@@ -62,6 +64,13 @@ public class VisitService {
         //VisitSelectResponse 클래스안에 생성자에서 ResponseDto로 바꿔줌 -> id,username,disease,count
         VisitSelectResponse visitSelectResponse = new VisitSelectResponse(visit);
         return visitSelectResponse;
+    }
 
+    //방문 LIST 조회
+    public List<VisitSelectResponse> getList() {
+        List<Visit> visitList = visitRepository.findAll();
+        List<VisitSelectResponse> visitSelectResponseList = visitList.stream().map(visit -> new VisitSelectResponse(visit))
+                .collect(Collectors.toList());
+        return visitSelectResponseList;
     }
 }
