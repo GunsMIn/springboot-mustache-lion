@@ -16,19 +16,22 @@ public class VisitSelectResponse {
 
     private Long id;
 
-    private String userName;
+    private String hospitalName;
 
     private Long userId;
 
-    private Disease disease;
+    private String userName;
+
+    private String diseaseName;
 
     private Integer count;
 
     public VisitSelectResponse(Visit visit) {
         this.id = visit.getId();
-        this.userName = visit.getUser().getUsername();
         this.userId = visit.getUser().getId();
-        this.disease = visit.getDisease();
+        this.userName = visit.getUser().getUsername();
+        this.hospitalName = visit.getHospital().getHospitalName();
+        this.diseaseName = visit.getDisease().getName();
         this.count = visit.getCount();
     }
 
