@@ -2,6 +2,7 @@ package com.mustache.bbs.service;
 
 import com.mustache.bbs.domain.dto.visit.VisitCreateRequest;
 import com.mustache.bbs.domain.dto.visit.VisitCreateResponse;
+import com.mustache.bbs.domain.dto.visit.VisitSelectResponse;
 import com.mustache.bbs.domain.entity.Hospital;
 import com.mustache.bbs.domain.entity.User;
 import com.mustache.bbs.domain.entity.Visit;
@@ -52,5 +53,15 @@ public class VisitService {
                 .count(savedVisit.getCount()).build();
 
         return visitCreateResponse;
+    }
+
+    public VisitSelectResponse getOne(Long id) {
+        Optional<Visit> visitOptional = visitRepository.findById(id);
+        Visit visit = visitOptional.orElseThrow(() ->new RuntimeException("해당 병원방문에 대한 정보는 존재하지 않습니다"));
+
+        //VisitSelectResponse 클래스안에 생성자에서 ResponseDto로 바꿔줌 -> id,username,disease,count
+        VisitSelectResponse visitSelectResponse = new VisitSelectResponse(visit);
+        return visitSelectResponse;
+
     }
 }
