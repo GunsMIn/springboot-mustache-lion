@@ -21,6 +21,12 @@ public class ExceptionManager {
                 .body(Response.error(e.getMessage()));
     }
 
+    //도커 배포전 수정
+    @ExceptionHandler(UserException.class)
+    public  ResponseEntity<?> userAppExceptionHandler(UserException e) {
+        return ResponseEntity.status(e.getErrorCode().getStatus())
+                .body(Response.error(e.getErrorCode().getMessage()));
+    }
 
 
 
