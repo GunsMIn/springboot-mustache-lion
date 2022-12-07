@@ -23,20 +23,20 @@ public class VisitController {
       "count":"4"*/
     private final VisitService visitService;
 
-    @PostMapping("/api/v1/create/{userName}")
+    @PostMapping("/api/v1/visits/{userName}")
     public ResponseEntity<VisitCreateResponse> create(@RequestBody VisitCreateRequest visitCreateRequest, @PathVariable  String userName, Authentication authentication) {
         log.info("Controller user:{},authentication :{}", authentication.getName(),authentication.isAuthenticated());
         VisitCreateResponse visitCreateResponse = visitService.create(visitCreateRequest,userName);
         return ResponseEntity.ok().body(visitCreateResponse);
     }
 
-    @GetMapping("/api/v1/visit/{id}")
+    @GetMapping("/api/v1/visits/{id}")
     public Response<VisitSelectResponse> get(@PathVariable Long id) {
         VisitSelectResponse visitServiceOne = visitService.getOne(id);
         return Response.success(visitServiceOne);
     }
 
-    @GetMapping("/api/v1/visit")
+    @GetMapping("/api/v1/visits")
     public Response<List<VisitSelectResponse>> get() {
         List<VisitSelectResponse> visitServiceList = visitService.getList();
         return Response.success(visitServiceList);
