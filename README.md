@@ -2,7 +2,7 @@
 <p align="center"><img width="500" alt="캡처5" src="https://user-images.githubusercontent.com/104709432/206082215-24ff303f-ddfe-4789-a756-643e9c777b8f.PNG"></p>
 
 ## Running Docker on AWS EC2(Hospital Project🔽)
-### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
+### http://ec2-3-39-24-220.ap-northeast-2.compute.amazonaws.com:8080/articles
 # Hospital Project ERD 다이어그램
 <p align="center"><img width="553" alt="hospitalerd" src="https://user-images.githubusercontent.com/104709432/206084426-22c6c88a-7c59-4d5a-9d78-0d0c0a367898.PNG">
 </p></br>
@@ -10,7 +10,7 @@
 ## Visit RestApi(방문) 
 - **USER와 @ManyToOne관계,Hospital와 @ManyToOne관계**
 ###  @PostMapping("/api/v1/create/{userName}") :방문 생성 
-###   @GetMapping("/api/v1/visit/{id}") :방문 단건 조회
+###  @GetMapping("/api/v1/visit/{id}") :방문 단건 조회
 ### @GetMapping("/api/v1/visit") : 방문 전체 조회
 ### @GetMapping("/api/v1/visits/users/{id}") : 해당 회원의 방문 조회
 ### @GetMapping("/api/v1/visits/hospitals/{id}") :해당 병원의 방문 조회
