@@ -1,16 +1,15 @@
 package com.mustache.bbs.controllerRest;
 
+import com.mustache.bbs.domain.Response;
 import com.mustache.bbs.domain.dto.visit.VisitCreateRequest;
 import com.mustache.bbs.domain.dto.visit.VisitCreateResponse;
+import com.mustache.bbs.domain.dto.visit.VisitSelectResponse;
 import com.mustache.bbs.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +26,12 @@ public class VisitController {
         log.info("Controller user:{},authentication :{}", authentication.getName(),authentication.isAuthenticated());
         VisitCreateResponse visitCreateResponse = visitService.create(visitCreateRequest,userName);
         return ResponseEntity.ok().body(visitCreateResponse);
+    }
+
+    @GetMapping("/api/v1/users/{id}")
+    public Response<VisitSelectResponse> get(@PathVariable Long id) {
+        VisitSelectResponse visitServiceOne = visitService.getOne(id);
+        return Response.success(visitServiceOne);
     }
 
 }
