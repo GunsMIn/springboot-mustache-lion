@@ -2,7 +2,7 @@
 <p align="center"><img width="500" alt="캡처5" src="https://user-images.githubusercontent.com/104709432/206082215-24ff303f-ddfe-4789-a756-643e9c777b8f.PNG"></p>
 
 ## Running Docker on AWS EC2(Hospital Project🔽)
-### http://ec2-3-39-24-220.ap-northeast-2.compute.amazonaws.com:8080/articles
+### http://ec2-3-39-24-220.ap-northeast-2.compute.amazonaws.com:8080
 # Hospital Project ERD 다이어그램
 <p align="center"><img width="553" alt="hospitalerd" src="https://user-images.githubusercontent.com/104709432/206084426-22c6c88a-7c59-4d5a-9d78-0d0c0a367898.PNG">
 </p></br>
