@@ -18,6 +18,8 @@ public class VisitSelectResponse {
 
     private String userName;
 
+    private Long userId;
+
     private Disease disease;
 
     private Integer count;
@@ -25,7 +27,9 @@ public class VisitSelectResponse {
     public VisitSelectResponse(Visit visit) {
         this.id = visit.getId();
         this.userName = visit.getUser().getUsername();
+        this.userId = visit.getUser().getId();
         this.disease = visit.getDisease();
         this.count = visit.getCount();
     }
+
 }
