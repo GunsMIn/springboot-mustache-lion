@@ -30,13 +30,13 @@ public class VisitController {
         return ResponseEntity.ok().body(visitCreateResponse);
     }
 
-    @GetMapping("/api/v1/users/{id}")
+    @GetMapping("/api/v1/visit/{id}")
     public Response<VisitSelectResponse> get(@PathVariable Long id) {
         VisitSelectResponse visitServiceOne = visitService.getOne(id);
         return Response.success(visitServiceOne);
     }
 
-    @GetMapping("/api/v1/users")
+    @GetMapping("/api/v1/visit")
     public Response<List<VisitSelectResponse>> get() {
         List<VisitSelectResponse> visitServiceList = visitService.getList();
         return Response.success(visitServiceList);
