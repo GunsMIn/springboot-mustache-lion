@@ -1,5 +1,7 @@
 # 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현 / Spring Security (JWT 토큰)
-## Running Docker on AWS EC2(10만건 이상 병원 RestApi)
+<p align="center"><img width="500" alt="캡처5" src="https://user-images.githubusercontent.com/104709432/206082215-24ff303f-ddfe-4789-a756-643e9c777b8f.PNG"></p>
+
+## Running Docker on AWS EC2(Hospital Project🔽)
 ### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
 # Hospital Project ERD 다이어그램
 <img width="537" alt="ERD" src="https://user-images.githubusercontent.com/104709432/206074048-b9f3e109-3fd4-4075-a8ed-38bad8cb9734.PNG">
