@@ -18,9 +18,9 @@ import java.util.List;
 @Slf4j
 public class VisitController {
     //http://localhost:8909/api/v1/create/김건우
-    // "hospitalId":"2",
-    //  "disease" :"B",
-    //  "count":"4"
+     /*"hospitalId":"2",
+     "disease" :"B",
+      "count":"4"*/
     private final VisitService visitService;
 
     @PostMapping("/api/v1/create/{userName}")
@@ -48,6 +48,13 @@ public class VisitController {
         List<VisitSelectResponse> visitSelectResponses = visitService.getByUserInfoToVisit(id);
         return Response.success(visitSelectResponses);
     }
+
+    @GetMapping("/api/v1/visits/hospitals/{id}")
+    public Response<List<VisitSelectResponse>> getByHospitalInformation(@PathVariable Integer id) {
+        List<VisitSelectResponse> visitHospitalResponses = visitService.getByHospitalToVisit(id);
+        return Response.success(visitHospitalResponses);
+    }
+
 
 
 }
