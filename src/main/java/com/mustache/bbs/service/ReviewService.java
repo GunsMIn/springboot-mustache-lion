@@ -29,6 +29,11 @@ public class ReviewService {
   "content":"병원이 쾌적하고 좋아요",
   "userName":"김건우"
 }*/
+
+    public String write( String userName) {
+        return userName + "님의 리뷰가 등록되었습니다.";
+    }
+
     //리뷰 추가(병원정보+)
     public ReviewCreateResponse add(ReviewCreateRequest reviewCreateRequest) {
         //hospital 먼저 조회해주자
