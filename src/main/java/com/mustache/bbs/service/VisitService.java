@@ -12,13 +12,14 @@ import com.mustache.bbs.repository.HospitalRepository;
 import com.mustache.bbs.repository.UserRepository;
 import com.mustache.bbs.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+@Service @Slf4j
 @RequiredArgsConstructor
 public class VisitService {
 
@@ -74,14 +75,7 @@ public class VisitService {
         return visitSelectResponseList;
     }
 
-    // //GET /api/v1/visits/users/{id} → 특정 user의 기록 조회
-    public List<VisitSelectResponse> getByUserInfoToVisit(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("해당 회원은 존재하지 않습니다."));
-        List<VisitSelectResponse> list = getList();
-        List<VisitSelectResponse> findUserVisit
-                = list.stream().filter(visit -> visit.getUserName() == user.getUsername())
-                .collect(Collectors.toList());
-        return findUserVisit;
-    }
+
+
+
 }
