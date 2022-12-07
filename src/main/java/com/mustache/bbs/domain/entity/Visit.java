@@ -22,7 +22,7 @@ public class Visit {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Disease disease;
 
     private Integer count;
