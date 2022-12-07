@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -32,6 +34,12 @@ public class VisitController {
     public Response<VisitSelectResponse> get(@PathVariable Long id) {
         VisitSelectResponse visitServiceOne = visitService.getOne(id);
         return Response.success(visitServiceOne);
+    }
+
+    @GetMapping("/api/v1/users")
+    public Response<List<VisitSelectResponse>> get() {
+        List<VisitSelectResponse> visitServiceList = visitService.getList();
+        return Response.success(visitServiceList);
     }
 
 }
