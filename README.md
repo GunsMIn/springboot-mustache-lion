@@ -5,8 +5,15 @@
 ### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
 # Hospital Project ERD 다이어그램
 <p align="center"><img width="553" alt="hospitalerd" src="https://user-images.githubusercontent.com/104709432/206084426-22c6c88a-7c59-4d5a-9d78-0d0c0a367898.PNG">
-</p>
+</p></br>
 
+## Visit RestApi(방문) 
+- **USER와 @ManyToOne관계,Hospital와 @ManyToOne관계**
+###  @PostMapping("/api/v1/create/{userName}") :방문 생성 
+###   @GetMapping("/api/v1/visit/{id}") :방문 단건 조회
+### @GetMapping("/api/v1/visit") : 방문 전체 조회
+### @GetMapping("/api/v1/visits/users/{id}") : 해당 회원의 방문 조회
+### @GetMapping("/api/v1/visits/hospitals/{id}") :해당 병원의 방문 조회
 
 # Spring Security + JWT Token
 ### [병원공공데이터 처리 프로젝트 Spring Security와 JWT Token 인증,인가 처리 (Velog 정리본)](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
@@ -36,6 +43,8 @@
 ### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
 ### @GetMapping("/api/hospitals") :병원 전체 조회
 ### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
+
+
 
 ## Review RestApi(병원 리뷰)
 - **Hospital와 @ManyToOne관계(Lazy)**
