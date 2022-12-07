@@ -1,3 +1,4 @@
+/*
 package com.mustache.bbs.controllerRest;
 
 import com.mustache.bbs.domain.dto.userAdd.UserAddRequest;
@@ -43,6 +44,9 @@ public class UserRestController {
         return ResponseEntity.ok().body(userDeleteResponse);
     }
 
-   /* @GetMapping("/api/users")
-    public ResponseEntity*/
+   */
+/* @GetMapping("/api/users")
+    public ResponseEntity*//*
+
 }
+*/

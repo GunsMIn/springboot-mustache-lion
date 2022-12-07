@@ -45,5 +45,11 @@ public class ReviewRestController {
         return ResponseEntity.ok().body(responseList);
     }
 
+    /*  {
+  "hospitalId":2,
+  "title":"의사선생님이 친절해요",
+  "content":"의사선생님이 아주 친절하시고 궁금한 점도 답변을 잘 해주세요",
+  "userName":"멋사"
+}       */
 }
 

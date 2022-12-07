@@ -12,12 +12,13 @@ public class Response<T> {
     // 성공을 반환할 때 result로 감싸서 리턴.
     private T result;
 
-    private static Response<Void> error(String resultCode) {
+    public static Response<Void> error(String resultCode) {
         return new Response(resultCode, null);
     }
 
     public static <T> Response<T> success(T result){
-        return new Response("SUCCESS", result);
+            return new Response("SUCCESS", result);
+                                                //result에는 객체가 들어간다.
     }
 
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 public class HospitalReviewException extends RuntimeException{
 
     ErrorCode errorCode;
-    private String message;
+    private String message; //String.format("UserName:%s", userJoinRequest.getUserName())
 
     @Override
     public String toString() {

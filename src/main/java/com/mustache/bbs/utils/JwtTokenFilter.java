@@ -41,10 +41,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        //헤더에서 토큰 꺼내기
         final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorizationHeader:{}", authorizationHeader);
 
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+        // 토큰이 없거나
+       if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -52,6 +54,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token;
 
         try {
+            //Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6Imt5ZW9uZ3JvazUiLCJpYXQiOjE2Njk2NT ~~~
+            //형태로 들어오므로 .split(“ “)로 token을 분리 한다.
             token = authorizationHeader.split(" ")[1];
         } catch (Exception e) {
             log.error("token 추출에 실패 했습니다.");
@@ -64,16 +68,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         };
 
-        // token에서 userName 꺼내기
+
+        // Token에서 Claim에서 UserName꺼내기
         String userName = JwtTokenUtil.getUserName(token, secretKey);
-        log.info("사용자 이름 : {}",userName);
+        log.info("userName:{}", userName);
 
+// UserDetail가져오기
         User user = userService.getUserByUserName(userName);
-        log.info("userRole : {} ",user.getRole());
+        log.info("userRole:{}", user.getRole());
 
-        //문 열어주기, Role 바인딩
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), null, List.of(new SimpleGrantedAuthority(user.getRole().name())));
+//문 열어주기, Role 바인딩
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, null, List.of(new SimpleGrantedAuthority(user.getRole().name()))    );
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken); // 권한 부여
         filterChain.doFilter(request, response);
