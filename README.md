@@ -9,9 +9,9 @@
 
 ## Visit RestApi(방문) 
 - **USER와 @ManyToOne관계,Hospital와 @ManyToOne관계**
-###  @PostMapping("/api/v1/create/{userName}") :방문 생성 
-###  @GetMapping("/api/v1/visit/{id}") :방문 단건 조회
-### @GetMapping("/api/v1/visit") : 방문 전체 조회
+###  @PostMapping("/api/v1/visits/{userName}") :방문 생성 
+###  @GetMapping("/api/v1/visits/{id}") :방문 단건 조회
+### @GetMapping("/api/v1/visits") : 방문 전체 조회
 ### @GetMapping("/api/v1/visits/users/{id}") : 해당 회원의 방문 조회
 ### @GetMapping("/api/v1/visits/hospitals/{id}") :해당 병원의 방문 조회
 
