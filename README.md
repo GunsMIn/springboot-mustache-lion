@@ -4,7 +4,9 @@
 ## Running Docker on AWS EC2(Hospital Project🔽)
 ### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
 # Hospital Project ERD 다이어그램
-<img width="537" alt="ERD" src="https://user-images.githubusercontent.com/104709432/206074048-b9f3e109-3fd4-4075-a8ed-38bad8cb9734.PNG">
+<p align="center"><img width="553" alt="hospitalerd" src="https://user-images.githubusercontent.com/104709432/206084426-22c6c88a-7c59-4d5a-9d78-0d0c0a367898.PNG">
+</p>
+
 
 # Spring Security + JWT Token
 ### [병원공공데이터 처리 프로젝트 Spring Security와 JWT Token 인증,인가 처리 (Velog 정리본)](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
