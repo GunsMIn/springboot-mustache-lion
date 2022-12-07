@@ -1,24 +1,12 @@
 # 병원 공공데이터 대용량 데이터 처리(10만건 이상) / JPA를 이용한 RestApi 구현 / Spring Security (JWT 토큰)
-## Running Docker on AWS EC2
+## Running Docker on AWS EC2(10만건 이상 병원 RestApi)
+### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
 <img width="850" alt="aws경로" src="https://user-images.githubusercontent.com/104709432/204135190-aaea9f66-17ab-41b7-a89e-164c5998d709.PNG">
 <br>
 
+# Hospital Project ERD 다이어그램
+<img width="537" alt="ERD" src="https://user-images.githubusercontent.com/104709432/206074048-b9f3e109-3fd4-4075-a8ed-38bad8cb9734.PNG">
 
-# AWS (10만건 이상 병원 RestApi)
-### http://ec2-3-39-177-240.ap-northeast-2.compute.amazonaws.com:8080/
-
-## Hospital RestApi(병원) 
-- **Review와 @OneTomany관계**
-### @GetMapping("/api/hospitals/{id}") :해당 id병원 정보만 조회
-### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
-### @GetMapping("/api/hospitals") :병원 전체 조회
-### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
-
-## Review RestApi(병원 리뷰)
-- **Hospital와 @ManyToOne관계(Lazy)**
-### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
-### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
-### @GetMapping("/api/reviews") :리뷰 전체 조회</br>
 # Spring Security + JWT Token
 ### [Spring Security 프로젝트 적용 (Velog 정리본)](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
 ## User RestApi(회원) - JWT 로그인 구현
@@ -41,6 +29,18 @@
 <img width="550" alt="캡처6" src="https://user-images.githubusercontent.com/104709432/204980562-6777a266-6046-480a-bed1-be44673ac462.PNG"><br>
 
 
+## Hospital RestApi(병원) 
+- **Review와 @OneTomany관계**
+### @GetMapping("/api/hospitals/{id}") :해당 id병원 정보만 조회
+### @GetMapping("/api/hospitals/{id}/reviews") :해당 id 병원 정보와 해당 병원 리뷰 조회
+### @GetMapping("/api/hospitals") :병원 전체 조회
+### @GetMapping("/api/hospitals/reviews") :리뷰가 존재하는 병원 전체 조회
+
+## Review RestApi(병원 리뷰)
+- **Hospital와 @ManyToOne관계(Lazy)**
+### @GetMapping("/api/{id}/reviews") : 해당 Review ID로 리뷰와 병원정보 조회
+### @PostMapping("/api/{id}/reviews") : 리뷰 쓰기
+### @GetMapping("/api/reviews") :리뷰 전체 조회</br>
 
 
 ## Book RestApi(책)
@@ -55,10 +55,6 @@
 ### @PatchMapping("/api/articles/{id}") : 게시글 수정(변경감지 dirty cash 사용)
 ### @DeleteMapping("/api/articles/{id}") : 게시글 삭제
 ### @GetMapping("/api/articles") : 게시글 전체 조회(제네릭타입을 응답 타입으로 사용하여 회원 count 기능 추가)
-
-
-
-
 
 <br><br>
 # JPA를 사용하는 이유
