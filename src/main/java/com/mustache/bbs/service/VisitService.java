@@ -88,5 +88,21 @@ public class VisitService {
         return findUserVisit;
     }
 
+    //GET /api/v1/visits/hospitals/{id} → 특정 병원의 방문 기록 조회
+    public List<VisitSelectResponse> getByHospitalToVisit(Integer id) {
+        Optional<Hospital> hospitalOptional = hospitalRepository.findById(id);
+        //병원 엔티티 찾음
+        Hospital hospital
+                = hospitalOptional.orElseThrow(() ->
+                new HospitalReviewException(ErrorCode.NOT_FOUNDED, "해당 병원의 리뷰는 존재하지 않습니다"));
+        //목록 조회
+        List<Visit> visitList = visitRepository.findAll();
+        //filter를 사용해서 병원 id비교
+        List<VisitSelectResponse> findHospitalVisit =
+                visitList.stream().filter(visit -> hospital.getId() == visit.getHospital().getId())
+                        .map(visit -> new VisitSelectResponse(visit))
+                .collect(Collectors.toList());
+        return findHospitalVisit;
+    }
 
 }
