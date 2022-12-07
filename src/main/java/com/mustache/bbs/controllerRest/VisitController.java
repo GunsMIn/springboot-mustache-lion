@@ -42,4 +42,12 @@ public class VisitController {
         return Response.success(visitServiceList);
     }
 
+    //GET /api/v1/visits/users/{id} → 특정 user의 기록 조회
+    @GetMapping("/api/v1/visits/users/{id}")
+    public Response<List<VisitSelectResponse>> getByUserInformation(@PathVariable Long id) {
+        List<VisitSelectResponse> visitSelectResponses = visitService.getByUserInfoToVisit(id);
+        return Response.success(visitSelectResponses);
+    }
+
+
 }
