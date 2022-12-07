@@ -27,13 +27,15 @@ public class VisitService {
     public VisitCreateResponse create(VisitCreateRequest visitCreateRequest,String userName) {
         //hospitalid disease amount
 
+        //병원 id로 병원 엔티티 영속성컨텍스트에서 꺼내옴
         Optional<Hospital> hospitalOptional = hospitalRepository.findById(visitCreateRequest.getHospitalId());
         Hospital hospital = hospitalOptional
                 .orElseThrow(() -> new HospitalReviewException(ErrorCode.NOT_FOUNDED, "해당 병원은 존재하지 않습니다"));
-
+        //회원 이름으로 회원 엔티티 영속성컨텍스트에서 꺼내옴
         Optional<User> userOptional = userRepository.findUserByUsername(userName);
         User user = userOptional.orElseThrow(() -> new RuntimeException("해당 회원은 존재하지 않습니다"));
 
+        //RequestDto - > Entity
         Visit visit = Visit.builder()
                 .user(user)
                 .hospital(hospital)
@@ -43,6 +45,7 @@ public class VisitService {
 
         Visit savedVisit = visitRepository.save(visit);
 
+        //Entity -> ResponseDto
         VisitCreateResponse visitCreateResponse = VisitCreateResponse.builder()
                 .hospitalId(savedVisit.getHospital().getId())
                 .disease(savedVisit.getDisease())
