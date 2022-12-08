@@ -11,7 +11,7 @@ import static javax.persistence.FetchType.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Review {
+public class Review extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

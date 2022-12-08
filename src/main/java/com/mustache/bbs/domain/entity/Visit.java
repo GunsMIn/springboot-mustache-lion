@@ -20,7 +20,7 @@ public class Visit extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private Disease disease;
 
     private Integer count;
