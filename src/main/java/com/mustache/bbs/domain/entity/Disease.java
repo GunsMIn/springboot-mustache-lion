@@ -12,7 +12,8 @@ public enum Disease {
     D(4, "코로나"),
     E(5, "근육통"),
     F(6, "코막힘"),
-    G(7, "원인불명");
+    G(7, "치통"),
+    H(8, "원인불명");
 
     private Integer code;
     private String name;
