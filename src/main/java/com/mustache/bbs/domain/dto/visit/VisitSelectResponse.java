@@ -15,24 +15,24 @@ import java.time.LocalDateTime;
 @Data  @NoArgsConstructor
 public class VisitSelectResponse {
 
-    private Long id;
-
     private String hospitalName;
 
-    private Long userId;
+    private String visitTime;
 
     private String userName;
+
+    private Long userId;
 
     private String diseaseName;
 
     private Integer count;
 
-    private String visitTime;
+
 
     public VisitSelectResponse(Visit visit) {
-        this.id = visit.getId();
-        this.userId = visit.getUser().getId();
+
         this.userName = visit.getUser().getUsername();
+        this.userId = visit.getUser().getId();
         this.hospitalName = visit.getHospital().getHospitalName();
         this.diseaseName = visit.getDisease().getName();
         this.count = visit.getCount();
