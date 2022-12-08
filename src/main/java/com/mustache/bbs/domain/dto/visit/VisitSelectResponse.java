@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data  @NoArgsConstructor
 public class VisitSelectResponse {
@@ -26,6 +27,8 @@ public class VisitSelectResponse {
 
     private Integer count;
 
+    private String visitTime;
+
     public VisitSelectResponse(Visit visit) {
         this.id = visit.getId();
         this.userId = visit.getUser().getId();
@@ -33,6 +36,7 @@ public class VisitSelectResponse {
         this.hospitalName = visit.getHospital().getHospitalName();
         this.diseaseName = visit.getDisease().getName();
         this.count = visit.getCount();
+        this.visitTime = visit.getCreatedDate();
     }
 
 }
