@@ -101,7 +101,8 @@ public class VisitService {
         List<VisitSelectResponse> findHospitalVisit =
                 visitList.stream().filter(visit -> hospital.getId() == visit.getHospital().getId())
                         .map(visit -> new VisitSelectResponse(visit))
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList());
+
         return findHospitalVisit;
     }
 
