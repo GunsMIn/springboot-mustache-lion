@@ -31,7 +31,7 @@ public class ArticleRestController {
         return ResponseEntity.status(HttpStatus.OK).body(articleDto);
     }
 
-    //add 컨트롤러////
+    //add 컨트롤러//////
     //여기 컨트롤러에서는 dto가 2개가 사용이 될 것 이다. 
     // 1. 하나는 요청 dto  2. 다른 하나는 응답 dto
     // 또 중요한 키 포인트는 JpaRepositroy<Article,Long> 을 사용해야하기 때문에
