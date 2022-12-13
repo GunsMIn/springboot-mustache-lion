@@ -2,7 +2,7 @@
 <p align="center"><img width="500" alt="캡처5" src="https://user-images.githubusercontent.com/104709432/206082215-24ff303f-ddfe-4789-a756-643e9c777b8f.PNG"></p>
 
 ## Running Docker on AWS EC2(Hospital Project🔽)
-### http://ec2-3-39-24-220.ap-northeast-2.compute.amazonaws.com:8080
+### http://ec2-54-180-82-18.ap-northeast-2.compute.amazonaws.com:8080/
 # Hospital Project ERD 다이어그램
 <p align="center"><img width="553" alt="hospitalerd" src="https://user-images.githubusercontent.com/104709432/206084426-22c6c88a-7c59-4d5a-9d78-0d0c0a367898.PNG">
 </p></br>
@@ -10,10 +10,10 @@
 ## Visit RestApi(방문) 
 - **USER와 @ManyToOne관계,Hospital와 @ManyToOne관계**
 ###  @PostMapping("/api/v1/visits/{userName}") :방문 생성 
-###  @GetMapping("/api/v1/visits/{id}") :방문 단건 조회
-### @GetMapping("/api/v1/visits") : 방문 전체 조회
-### @GetMapping("/api/v1/visits/users/{id}") : 해당 회원의 방문 조회
-### @GetMapping("/api/v1/visits/hospitals/{id}") :해당 병원의 방문 조회
+###  @GetMapping("/api/v1/visits/{id}") :[방문 단건 조회](http://ec2-54-180-82-18.ap-northeast-2.compute.amazonaws.com:8080/api/v1/visits/1)
+### @GetMapping("/api/v1/visits") : [방문 전체 조회](http://ec2-54-180-82-18.ap-northeast-2.compute.amazonaws.com:8080/api/v1/visits)
+### @GetMapping("/api/v1/visits/users/{id}") : [해당 회원의 방문 조회](http://ec2-54-180-82-18.ap-northeast-2.compute.amazonaws.com:8080/api/v1/visits/hospitals/49681)
+### @GetMapping("/api/v1/visits/hospitals/{id}") :[해당 병원의 방문 조회](http://ec2-54-180-82-18.ap-northeast-2.compute.amazonaws.com:8080/api/v1/visits/users/1)
 
 # Spring Security + JWT Token
 ### [병원공공데이터 처리 프로젝트 Spring Security와 JWT Token 인증,인가 처리 (Velog 정리본)](https://velog.io/@guns95/Spring-Security%EC%99%80-JWT-%ED%86%A0%ED%81%B0%EC%9D%98-%EC%9D%B8%EC%A6%9D%EC%9D%B8%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
@@ -67,3 +67,4 @@
 ### @GetMapping("/api/articles") : 게시글 전체 조회(제네릭타입을 응답 타입으로 사용하여 회원 count 기능 추가)
 
 <br><br>
+
